@@ -93,30 +93,37 @@ export default function LandingPage() {
             </div>
           </motion.div>
 
-          {/* Hero Glass Card */}
+          {/* Hero Metrics Showcase */}
           <motion.div
             initial={{ opacity: 0, scale: 0.8 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ delay: 0.4, duration: 0.6 }}
-            className="mt-16 flex justify-center"
+            className="mt-16"
           >
             <GlassCard
               variant="iridescent"
               padding="lg"
-              className="max-w-3xl w-full min-h-[300px] flex items-center justify-center"
+              className="max-w-4xl mx-auto"
             >
-              <div className="flex flex-col items-center gap-6">
-                <div className="glass-loader-orb glass-loader-orb-lg" />
-                <div className="space-y-2 text-center">
-                  <p className="text-sm text-text-muted">
-                    {t('landing.previewText')}
-                  </p>
-                  <div className="flex gap-3 justify-center">
-                    <span className="glass-skeleton h-3 w-20 block" />
-                    <span className="glass-skeleton h-3 w-32 block" />
-                    <span className="glass-skeleton h-3 w-16 block" />
-                  </div>
-                </div>
+              <div className="grid grid-cols-2 md:grid-cols-4 gap-6 text-center">
+                {[
+                  { value: '18.4x', label: 'ROAS Promedio' },
+                  { value: '85%', label: 'Ahorro de Tiempo' },
+                  { value: '52s', label: 'Crear Campaña' },
+                  { value: '6', label: 'Plataformas' },
+                ].map((stat, i) => (
+                  <motion.div
+                    key={stat.label}
+                    initial={{ opacity: 0, y: 15 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: 0.6 + i * 0.1 }}
+                  >
+                    <p className="text-3xl md:text-4xl font-bold bg-gradient-to-r from-accent to-accent-secondary bg-clip-text text-transparent">
+                      {stat.value}
+                    </p>
+                    <p className="text-sm text-text-muted mt-1">{stat.label}</p>
+                  </motion.div>
+                ))}
               </div>
             </GlassCard>
           </motion.div>
