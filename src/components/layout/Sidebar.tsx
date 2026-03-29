@@ -14,6 +14,7 @@ import {
   FileText,
   Users,
   Settings,
+  CreditCard,
   ChevronLeft,
   Rocket,
 } from 'lucide-react'
@@ -38,6 +39,7 @@ const navItems: NavItem[] = [
 ]
 
 const bottomItems: NavItem[] = [
+  { label: 'Facturación', href: '/billing', icon: <CreditCard size={20} /> },
   { label: 'Settings', href: '/settings', icon: <Settings size={20} /> },
 ]
 

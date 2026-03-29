@@ -2,7 +2,7 @@
 
 import Link from 'next/link'
 import { motion } from 'motion/react'
-import { Rocket, Zap, Brain, Target, BarChart3, ArrowRight } from 'lucide-react'
+import { Rocket, Zap, Brain, Target, BarChart3, ArrowRight, DollarSign } from 'lucide-react'
 import { GlassCard, GlassButton } from '@/components/glass'
 import { ThemeToggle } from '@/components/layout/ThemeToggle'
 import { useTranslations } from 'next-intl'
@@ -32,6 +32,11 @@ export default function LandingPage() {
           </div>
           <div className="flex items-center gap-4">
             <ThemeToggle />
+            <Link href="/pricing">
+              <GlassButton variant="ghost" size="sm" icon={<DollarSign size={16} />}>
+                {t('landing.seePricing')}
+              </GlassButton>
+            </Link>
             <Link href="/login">
               <GlassButton variant="ghost" size="sm">
                 {t('auth.login')}

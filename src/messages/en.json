@@ -22,7 +22,7 @@
     "lightMode": "Light mode",
     "darkMode": "Dark mode",
     "poweredBy": "Powered by Emprendimientum",
-    "allRights": "\u00a9 2026 AdsBoom. All rights reserved."
+    "allRights": "© 2026 AdsBoom. All rights reserved."
   },
   "auth": {
     "login": "Log in",
@@ -54,6 +54,7 @@
     "leads": "Leads",
     "reports": "Reports",
     "settings": "Settings",
+    "billing": "Billing",
     "agency": "Agency Hub",
     "collapse": "Collapse"
   },
@@ -103,7 +104,48 @@
     "perMonth": "/month",
     "billedAnnually": "billed annually",
     "oneTimeLicense": "One-time license",
-    "features": "Features"
+    "features": "Features",
+    "back": "Back"
+  },
+  "checkout": {
+    "title": "Complete Purchase",
+    "selectPaymentMethod": "Select your payment method",
+    "perMonth": "/month",
+    "perYear": "/year",
+    "licenseOnce": "One-time payment",
+    "licensePerpetual": "Perpetual license",
+    "subscriptionLabel": "Subscription",
+    "paypalDesc": "Credit card or PayPal account",
+    "payphoneDesc": "Credit card, debit or bank transfer (Ecuador/LATAM)",
+    "international": "International",
+    "securePayment": "Secure payment with 256-bit SSL encryption",
+    "processing": "Processing payment...",
+    "success": "Payment successful!",
+    "error": "Payment error"
+  },
+  "billing": {
+    "title": "Billing",
+    "currentPlan": "Current plan",
+    "perMonth": "/month",
+    "nextBilling": "Next billing",
+    "upgradePlan": "Upgrade Plan",
+    "users": "Users",
+    "campaigns": "Campaigns",
+    "platforms": "Platforms",
+    "paymentHistory": "Payment History",
+    "date": "Date",
+    "plan": "Plan",
+    "provider": "Provider",
+    "amount": "Amount",
+    "status": "Status",
+    "completed": "Completed",
+    "noPayments": "No payments recorded yet.",
+    "paymentMethods": "Available Payment Methods",
+    "availableInternational": "Available for international payments",
+    "availableLatam": "Ecuador and Latin America",
+    "subscriptionActivated": "Subscription activated successfully!",
+    "licenseActivated": "License activated successfully!",
+    "thankYou": "Thank you for your purchase. Your plan has been updated."
   },
   "landing": {
     "badge": "AI-Powered Ad Management",
@@ -115,7 +157,7 @@
     "heroDescription": "Create, optimize, and scale advertising campaigns across Meta, Google, TikTok, and more. AI does the work. You get the results.",
     "startTrial": "Start Free Trial",
     "seeFeatures": "See Features",
-    "previewText": "Campaign dashboard preview coming soon",
+    "seePricing": "See Pricing",
     "featuresTitle": "Everything you need to dominate ads",
     "featuresSubtitle": "8 powerful modules. One platform. Zero guesswork.",
     "feature1Title": "AI Campaign Studio",
