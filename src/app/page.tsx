@@ -144,7 +144,7 @@ export default function LandingPage() {
                 viewport={{ once: true }}
                 transition={{ delay: i * 0.1, duration: 0.4 }}
               >
-                <GlassCard padding="lg" className="h-full">
+                <GlassCard padding="lg" className="h-full glass-prismatic">
                   <div className="flex items-start gap-4">
                     <div className="w-12 h-12 rounded-xl glass-sm flex items-center justify-center shrink-0 text-accent">
                       {feature.icon}
