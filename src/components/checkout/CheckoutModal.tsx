@@ -63,7 +63,20 @@ export function CheckoutModal({
       )
 
       if (approvalLink?.href) {
-        window.location.href = approvalLink.href
+        // Open PayPal in popup instead of redirect
+        const popup = window.open(approvalLink.href, 'paypal_checkout', 'width=500,height=700,scrollbars=yes,resizable=yes')
+        if (!popup) {
+          // Fallback: redirect if popup blocked
+          window.location.href = approvalLink.href
+        } else {
+          // Check when popup closes
+          const checkClosed = setInterval(() => {
+            if (popup.closed) {
+              clearInterval(checkClosed)
+              setLoadingProvider(null)
+            }
+          }, 500)
+        }
       } else {
         throw new Error('No se encontró enlace de aprobación de PayPal')
       }
@@ -88,9 +101,19 @@ export function CheckoutModal({
       const data = await res.json()
       if (!res.ok) throw new Error(data.error || 'Error al preparar el pago')
 
-      // Redirect to PayPhone payment page
+      // Open PayPhone in popup
       if (data.payWithCard) {
-        window.location.href = data.payWithCard
+        const popup = window.open(data.payWithCard, 'payphone_checkout', 'width=500,height=700,scrollbars=yes,resizable=yes')
+        if (!popup) {
+          window.location.href = data.payWithCard
+        } else {
+          const checkClosed = setInterval(() => {
+            if (popup.closed) {
+              clearInterval(checkClosed)
+              setLoadingProvider(null)
+            }
+          }, 500)
+        }
       } else {
         throw new Error('No se recibió URL de pago de PayPhone')
       }

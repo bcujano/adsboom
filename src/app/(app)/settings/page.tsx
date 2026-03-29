@@ -68,12 +68,26 @@ export default function SettingsPage() {
     }, 1500)
   }
 
+  const [connectingPlatform, setConnectingPlatform] = useState<ConnectionPlatform | null>(null)
+
   const handleConnect = (platform: ConnectionPlatform) => {
-    // TODO: Redirect to OAuth flow
-    const url = connectionPlatforms.find((p) => p.id === platform)?.authUrl
-    if (url) {
-      alert(`OAuth flow para ${platform}: Se abrirá ${url}\n\nEsto requiere que primero crees la app en la plataforma correspondiente (Meta for Developers, Google Cloud, TikTok Business). Consulta la guía en CLAUDE.md.`)
-    }
+    setConnectingPlatform(platform)
+    // In production, this opens the OAuth popup for the platform
+    // For now, simulate the connection flow
+    const platformName = connectionPlatforms.find((p) => p.id === platform)?.name || platform
+    setTimeout(() => {
+      // Simulate OAuth success — in production this would be handled by the callback
+      setConnections((prev) =>
+        prev.map((c) =>
+          c.platform === platform
+            ? { ...c, connected: true, name: `Cuenta de ${platformName}` }
+            : c
+        )
+      )
+      setConnectingPlatform(null)
+    }, 2000)
+    // TODO: In production, open OAuth popup:
+    // window.open(`/api/auth/connect/${platform}`, 'oauth', 'width=600,height=700')
   }
 
   const toggleKeyVisibility = (engine: AIEngine) => {
@@ -90,8 +104,8 @@ export default function SettingsPage() {
   return (
     <div className="min-h-screen">
       <Header title="Configuración" />
-      <div className="p-6">
-        <div className="flex gap-6">
+      <div className="p-6 lg:p-8">
+        <div className="flex gap-8">
           {/* Sidebar Tabs */}
           <div className="w-56 shrink-0 space-y-1">
             {tabs.map((tab) => (
@@ -177,8 +191,8 @@ export default function SettingsPage() {
                               <GlassButton variant="ghost" size="sm">Desconectar</GlassButton>
                             </div>
                           ) : (
-                            <GlassButton variant="gradient-blue" size="sm" icon={<Link2 size={14} />} onClick={() => handleConnect(platform.id)}>
-                              Conectar
+                            <GlassButton variant="gradient-blue" size="sm" icon={connectingPlatform === platform.id ? <Loader2 size={14} className="animate-spin" /> : <Link2 size={14} />} loading={connectingPlatform === platform.id} onClick={() => handleConnect(platform.id)}>
+                              {connectingPlatform === platform.id ? 'Conectando...' : 'Conectar'}
                             </GlassButton>
                           )}
                         </div>

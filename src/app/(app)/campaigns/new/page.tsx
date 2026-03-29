@@ -10,6 +10,7 @@ import {
 } from 'lucide-react'
 import { GlassCard, GlassButton, GlassInput, GlassSelect } from '@/components/glass'
 import { Header } from '@/components/layout/Header'
+import { AI_ENGINES } from '@/types'
 import type { AdPlatform, CampaignObjective } from '@/types'
 
 const platforms: { id: AdPlatform; name: string; gradient: string }[] = [
@@ -78,7 +79,7 @@ export default function NewCampaignPage() {
   return (
     <div className="min-h-screen">
       <Header title="Nueva Campaña" />
-      <div className="p-6 lg:p-8 max-w-4xl mx-auto space-y-6">
+      <div className="p-6 lg:p-8 max-w-4xl space-y-6">
         {/* Progress Steps */}
         <div className="flex items-center gap-2">
           {steps.map((s, i) => (
@@ -147,6 +148,15 @@ export default function NewCampaignPage() {
                   <GlassInput label="Nombre de la campaña" placeholder="Ej: Black Friday 2026" value={campaign.name} onChange={(e) => setCampaign({ ...campaign, name: e.target.value })} required />
                   <GlassInput label="Describe tu producto o servicio" placeholder="Ej: Plataforma SaaS de gestión de anuncios con IA" />
                   <GlassInput label="Tono de comunicación" placeholder="Ej: Profesional pero cercano, orientado a resultados" />
+                  <div className="border-t border-[var(--glass-border-bottom)] pt-4">
+                    <p className="text-xs font-semibold text-text-muted uppercase tracking-wide mb-3">Motores de IA a utilizar</p>
+                    <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
+                      <GlassSelect label="Copy / Texto" options={AI_ENGINES.filter((e) => e.category === 'text').map((e) => ({ value: e.id, label: e.name }))} icon={<Type size={14} />} />
+                      <GlassSelect label="Imágenes" options={AI_ENGINES.filter((e) => e.category === 'image').map((e) => ({ value: e.id, label: e.name }))} icon={<Image size={14} />} />
+                      <GlassSelect label="Video" options={AI_ENGINES.filter((e) => e.category === 'video').map((e) => ({ value: e.id, label: e.name }))} icon={<Video size={14} />} />
+                    </div>
+                    <p className="text-xs text-text-muted mt-2">Configura tus API keys en Configuración → Claves API para activar cada motor</p>
+                  </div>
                 </div>
                 <div className="flex items-center gap-4">
                   <GlassButton variant="gradient-purple" size="lg" className="flex-1" icon={generating ? <Loader2 size={20} className="animate-spin" /> : <Sparkles size={20} />} loading={generating} onClick={handleGenerate}>
