@@ -103,7 +103,7 @@ export default function DashboardPage() {
             {t('welcomeBack', { name: displayName })}
           </h2>
           <p className="text-text-secondary mt-1">
-            Here&apos;s what&apos;s happening with your campaigns today.
+            {t('todayOverview')}
           </p>
         </motion.div>
 
@@ -173,7 +173,7 @@ export default function DashboardPage() {
                 {/* Placeholder skeleton */}
                 <GlassSkeleton lines={4} />
                 <p className="text-sm text-text-muted text-center mt-4">
-                  No campaigns yet. Create your first campaign to get started.
+                  {t('noCampaigns')}
                 </p>
               </div>
             </GlassCard>

@@ -1,32 +1,50 @@
 @import "tailwindcss";
 
-/* ===== ADSBOOM GLASS DESIGN SYSTEM ===== */
+/* ===== ADSBOOM — LIQUID GLASS DESIGN SYSTEM ===== */
+/* Inspired by Apple Liquid Glass: 3D depth, glossy refractions, floating crystals */
 
 /* --- Light Theme (default) --- */
 :root {
-  --bg-primary: #e8eaf2;
-  --bg-secondary: #f0f2f7;
-  --bg-tertiary: #ffffff;
+  --bg-primary: #dfe2ec;
+  --bg-secondary: #e8eaf4;
+  --bg-tertiary: #f0f2fa;
 
   --text-primary: #1a1a2e;
   --text-secondary: #4a4a6a;
   --text-muted: #8888aa;
 
-  --glass-bg: rgba(255, 255, 255, 0.25);
-  --glass-bg-hover: rgba(255, 255, 255, 0.45);
-  --glass-border: rgba(255, 255, 255, 0.45);
-  --glass-shadow: 0 8px 32px rgba(31, 38, 135, 0.12);
-  --glass-blur: 20px;
-  --glass-inner-glow: inset 0 1px 1px rgba(255, 255, 255, 0.6);
+  /* Liquid Glass Core */
+  --glass-bg: rgba(255, 255, 255, 0.35);
+  --glass-bg-hover: rgba(255, 255, 255, 0.55);
+  --glass-border-top: rgba(255, 255, 255, 0.85);
+  --glass-border-bottom: rgba(255, 255, 255, 0.2);
+  --glass-border-left: rgba(255, 255, 255, 0.5);
+  --glass-border-right: rgba(255, 255, 255, 0.3);
+  --glass-blur: 24px;
+
+  /* 3D Depth Shadows (multi-layer) */
+  --glass-shadow:
+    0 2px 4px rgba(0, 0, 0, 0.04),
+    0 8px 16px rgba(0, 0, 0, 0.06),
+    0 20px 40px rgba(31, 38, 135, 0.08),
+    0 1px 0 rgba(255, 255, 255, 0.8) inset,
+    0 -1px 0 rgba(0, 0, 0, 0.03) inset;
+
+  /* Inner Glossy Highlight */
+  --glass-highlight:
+    inset 0 1px 2px rgba(255, 255, 255, 0.9),
+    inset 0 -1px 1px rgba(255, 255, 255, 0.15),
+    inset 1px 0 1px rgba(255, 255, 255, 0.3),
+    inset -1px 0 1px rgba(255, 255, 255, 0.3);
 
   --accent-primary: #6366f1;
   --accent-secondary: #8b5cf6;
   --accent-gradient: linear-gradient(135deg, #6366f1, #8b5cf6, #a855f7);
 
-  --gradient-red-orange: linear-gradient(135deg, #ef4444, #f97316);
-  --gradient-blue-cyan: linear-gradient(135deg, #3b82f6, #06b6d4);
+  --gradient-red-orange: linear-gradient(135deg, #ef4444 0%, #f97316 50%, #fbbf24 100%);
+  --gradient-blue-cyan: linear-gradient(135deg, #3b82f6 0%, #06b6d4 50%, #22d3ee 100%);
   --gradient-green: linear-gradient(135deg, #10b981, #34d399);
-  --gradient-purple: linear-gradient(135deg, #8b5cf6, #a855f7);
+  --gradient-purple: linear-gradient(135deg, #8b5cf6 0%, #a855f7 50%, #c084fc 100%);
 
   --success: #10b981;
   --warning: #f59e0b;
@@ -39,19 +57,33 @@
 
 /* --- Dark Theme --- */
 [data-theme="dark"] {
-  --bg-primary: #0a0a1a;
-  --bg-secondary: #12122a;
-  --bg-tertiary: #1a1a3e;
+  --bg-primary: #080816;
+  --bg-secondary: #0e0e24;
+  --bg-tertiary: #161638;
 
   --text-primary: #f0f0ff;
   --text-secondary: #b0b0d0;
   --text-muted: #6666aa;
 
-  --glass-bg: rgba(255, 255, 255, 0.06);
-  --glass-bg-hover: rgba(255, 255, 255, 0.12);
-  --glass-border: rgba(255, 255, 255, 0.1);
-  --glass-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
-  --glass-inner-glow: inset 0 1px 1px rgba(255, 255, 255, 0.08);
+  --glass-bg: rgba(255, 255, 255, 0.04);
+  --glass-bg-hover: rgba(255, 255, 255, 0.09);
+  --glass-border-top: rgba(255, 255, 255, 0.15);
+  --glass-border-bottom: rgba(255, 255, 255, 0.03);
+  --glass-border-left: rgba(255, 255, 255, 0.08);
+  --glass-border-right: rgba(255, 255, 255, 0.05);
+
+  --glass-shadow:
+    0 2px 4px rgba(0, 0, 0, 0.2),
+    0 8px 16px rgba(0, 0, 0, 0.3),
+    0 20px 40px rgba(0, 0, 0, 0.2),
+    0 1px 0 rgba(255, 255, 255, 0.06) inset,
+    0 -1px 0 rgba(0, 0, 0, 0.2) inset;
+
+  --glass-highlight:
+    inset 0 1px 2px rgba(255, 255, 255, 0.1),
+    inset 0 -1px 1px rgba(255, 255, 255, 0.02),
+    inset 1px 0 1px rgba(255, 255, 255, 0.04),
+    inset -1px 0 1px rgba(255, 255, 255, 0.04);
 }
 
 /* --- Tailwind Theme Integration --- */
@@ -71,135 +103,193 @@
   --font-sans: "Inter", system-ui, -apple-system, sans-serif;
 }
 
-/* --- Base Styles --- */
+/* --- Base --- */
 body {
   background: var(--bg-primary);
   color: var(--text-primary);
   font-family: var(--font-sans);
-  transition: background-color 0.3s ease, color 0.3s ease;
+  transition: background-color 0.4s ease, color 0.3s ease;
   overflow-x: hidden;
 }
 
-/* --- Glass Utilities --- */
+/* ================================================
+   LIQUID GLASS — TRUE 3D FLOATING CRYSTAL EFFECT
+   ================================================ */
+
 .glass {
+  position: relative;
   background: var(--glass-bg);
-  backdrop-filter: blur(var(--glass-blur));
-  -webkit-backdrop-filter: blur(var(--glass-blur));
-  border: 1px solid var(--glass-border);
-  box-shadow: var(--glass-shadow), var(--glass-inner-glow);
-  border-radius: 16px;
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  backdrop-filter: blur(var(--glass-blur)) saturate(1.8);
+  -webkit-backdrop-filter: blur(var(--glass-blur)) saturate(1.8);
+  border-radius: 20px;
+  box-shadow: var(--glass-shadow), var(--glass-highlight);
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+
+  /* Directional borders = 3D depth illusion */
+  border-top: 1.5px solid var(--glass-border-top);
+  border-left: 1px solid var(--glass-border-left);
+  border-right: 1px solid var(--glass-border-right);
+  border-bottom: 1px solid var(--glass-border-bottom);
+}
+
+/* Top-left light caustic reflection */
+.glass::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 50%;
+  border-radius: 20px 20px 0 0;
+  background: linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 0.2) 0%,
+    rgba(255, 255, 255, 0.05) 40%,
+    transparent 100%
+  );
+  pointer-events: none;
+  z-index: 1;
 }
 
 .glass-sm {
+  position: relative;
   background: var(--glass-bg);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  border: 1px solid var(--glass-border);
-  box-shadow: var(--glass-shadow);
-  border-radius: 12px;
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  backdrop-filter: blur(16px) saturate(1.6);
+  -webkit-backdrop-filter: blur(16px) saturate(1.6);
+  border-radius: 14px;
+  box-shadow: var(--glass-shadow), var(--glass-highlight);
+  border-top: 1.5px solid var(--glass-border-top);
+  border-left: 1px solid var(--glass-border-left);
+  border-right: 1px solid var(--glass-border-right);
+  border-bottom: 1px solid var(--glass-border-bottom);
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.glass-sm::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 45%;
+  border-radius: 14px 14px 0 0;
+  background: linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 0.15) 0%,
+    transparent 100%
+  );
+  pointer-events: none;
+  z-index: 1;
 }
 
 .glass-pill {
+  position: relative;
   background: var(--glass-bg);
-  backdrop-filter: blur(var(--glass-blur));
-  -webkit-backdrop-filter: blur(var(--glass-blur));
-  border: 1px solid var(--glass-border);
-  box-shadow: var(--glass-shadow), var(--glass-inner-glow);
+  backdrop-filter: blur(var(--glass-blur)) saturate(1.8);
+  -webkit-backdrop-filter: blur(var(--glass-blur)) saturate(1.8);
   border-radius: 9999px;
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: var(--glass-shadow), var(--glass-highlight);
+  border-top: 1.5px solid var(--glass-border-top);
+  border-left: 1px solid var(--glass-border-left);
+  border-right: 1px solid var(--glass-border-right);
+  border-bottom: 1px solid var(--glass-border-bottom);
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
+/* Hover: lift + stronger glow */
 .glass:hover,
 .glass-sm:hover {
   background: var(--glass-bg-hover);
-  transform: translateY(-1px);
-  box-shadow: var(--glass-shadow), var(--glass-inner-glow),
-    0 4px 20px rgba(99, 102, 241, 0.1);
+  transform: translateY(-3px);
+  box-shadow:
+    var(--glass-shadow),
+    var(--glass-highlight),
+    0 12px 40px rgba(99, 102, 241, 0.1),
+    0 4px 12px rgba(139, 92, 246, 0.08);
 }
 
-/* --- Iridescent Light Refraction Effect --- */
+/* ================================================
+   IRIDESCENT — RAINBOW LIGHT CAUSTICS
+   ================================================ */
 .glass-iridescent {
   position: relative;
   overflow: hidden;
 }
-.glass-iridescent::before {
+
+.glass-iridescent::after {
   content: "";
   position: absolute;
-  top: -50%;
-  left: -50%;
-  width: 200%;
-  height: 200%;
+  top: -80%;
+  left: -80%;
+  width: 260%;
+  height: 260%;
   background: conic-gradient(
-    from 0deg at 50% 50%,
+    from 0deg at 30% 40%,
     transparent 0deg,
-    rgba(99, 102, 241, 0.05) 60deg,
-    rgba(168, 85, 247, 0.08) 120deg,
-    rgba(236, 72, 153, 0.05) 180deg,
-    rgba(59, 130, 246, 0.08) 240deg,
-    rgba(16, 185, 129, 0.05) 300deg,
+    rgba(99, 102, 241, 0.06) 45deg,
+    rgba(168, 85, 247, 0.1) 90deg,
+    rgba(236, 72, 153, 0.08) 135deg,
+    rgba(251, 191, 36, 0.05) 180deg,
+    rgba(59, 130, 246, 0.1) 225deg,
+    rgba(16, 185, 129, 0.06) 270deg,
+    rgba(139, 92, 246, 0.08) 315deg,
     transparent 360deg
   );
-  animation: glass-refraction 8s linear infinite;
+  animation: glass-refraction 12s linear infinite;
   pointer-events: none;
   z-index: 0;
-}
-.glass-iridescent > * {
-  position: relative;
-  z-index: 1;
+  mix-blend-mode: overlay;
 }
 
-/* --- Glass Loader / Orb --- */
+.glass-iridescent > * {
+  position: relative;
+  z-index: 2;
+}
+
+/* ================================================
+   CORNER DOT ACCENTS (like the reference image)
+   ================================================ */
+.glass-dots::after {
+  content: "";
+  position: absolute;
+  bottom: 12px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.5);
+  box-shadow:
+    -12px 0 0 rgba(255, 255, 255, 0.3),
+    12px 0 0 rgba(255, 255, 255, 0.3);
+}
+
+/* ================================================
+   GLASS LOADER / ORB — LIQUID IRIDESCENT
+   ================================================ */
 @keyframes glass-orb-spin {
-  0% {
-    transform: rotate(0deg);
-    filter: hue-rotate(0deg);
-  }
-  100% {
-    transform: rotate(360deg);
-    filter: hue-rotate(360deg);
-  }
+  0% { transform: rotate(0deg); filter: hue-rotate(0deg); }
+  100% { transform: rotate(360deg); filter: hue-rotate(360deg); }
 }
 
 @keyframes glass-orb-pulse {
-  0%,
-  100% {
-    transform: scale(1);
-    opacity: 0.7;
-  }
-  50% {
-    transform: scale(1.15);
-    opacity: 1;
-  }
+  0%, 100% { transform: scale(1); opacity: 0.7; }
+  50% { transform: scale(1.15); opacity: 1; }
 }
 
 @keyframes glass-refraction {
-  0% {
-    transform: rotate(0deg);
-  }
-  100% {
-    transform: rotate(360deg);
-  }
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
 }
 
 @keyframes glass-shimmer {
-  0% {
-    background-position: -200% 0;
-  }
-  100% {
-    background-position: 200% 0;
-  }
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
 }
 
 @keyframes glass-float {
-  0%,
-  100% {
-    transform: translateY(0);
-  }
-  50% {
-    transform: translateY(-8px);
-  }
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-10px); }
 }
 
 .glass-loader-orb {
@@ -218,11 +308,14 @@ body {
   );
   backdrop-filter: blur(8px);
   -webkit-backdrop-filter: blur(8px);
-  animation: glass-orb-spin 2.5s linear infinite,
+  animation:
+    glass-orb-spin 2.5s linear infinite,
     glass-orb-pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
   position: relative;
-  box-shadow: 0 0 30px rgba(139, 92, 246, 0.3),
-    0 0 60px rgba(139, 92, 246, 0.1);
+  box-shadow:
+    0 0 30px rgba(139, 92, 246, 0.3),
+    0 0 60px rgba(139, 92, 246, 0.1),
+    inset 0 0 20px rgba(255, 255, 255, 0.1);
 }
 
 .glass-loader-orb::before {
@@ -252,17 +345,12 @@ body {
   -webkit-backdrop-filter: blur(4px);
 }
 
-/* Loader sizes */
-.glass-loader-orb-sm {
-  width: 32px;
-  height: 32px;
-}
-.glass-loader-orb-lg {
-  width: 80px;
-  height: 80px;
-}
+.glass-loader-orb-sm { width: 32px; height: 32px; }
+.glass-loader-orb-lg { width: 80px; height: 80px; }
 
-/* --- Glass Skeleton Loader --- */
+/* ================================================
+   GLASS SKELETON / SHIMMER
+   ================================================ */
 .glass-skeleton {
   background: linear-gradient(
     90deg,
@@ -275,52 +363,67 @@ body {
   border-radius: 8px;
 }
 
-/* --- Gradient Buttons --- */
+/* ================================================
+   GRADIENT BUTTONS — GLOSSY 3D
+   ================================================ */
 .btn-gradient {
   position: relative;
   border: none;
-  border-radius: 9999px;
   padding: 10px 24px;
   font-weight: 600;
   color: white;
   cursor: pointer;
   overflow: hidden;
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+  box-shadow:
+    0 4px 15px rgba(0, 0, 0, 0.2),
+    0 1px 0 rgba(255, 255, 255, 0.3) inset,
+    0 -2px 4px rgba(0, 0, 0, 0.1) inset;
+}
+
+/* Glossy shine on top */
+.btn-gradient::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 50%;
+  background: linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 0.35) 0%,
+    rgba(255, 255, 255, 0.1) 60%,
+    transparent 100%
+  );
+  border-radius: inherit;
+  pointer-events: none;
 }
 
 .btn-gradient:hover {
   transform: translateY(-2px) scale(1.02);
-  box-shadow: 0 6px 25px rgba(0, 0, 0, 0.25);
+  box-shadow:
+    0 8px 30px rgba(0, 0, 0, 0.25),
+    0 1px 0 rgba(255, 255, 255, 0.3) inset,
+    0 -2px 4px rgba(0, 0, 0, 0.1) inset;
 }
 
 .btn-gradient:active {
   transform: translateY(0) scale(0.98);
 }
 
-/* --- Scrollbar --- */
-::-webkit-scrollbar {
-  width: 6px;
-  height: 6px;
-}
-::-webkit-scrollbar-track {
-  background: transparent;
-}
-::-webkit-scrollbar-thumb {
-  background: var(--glass-border);
-  border-radius: 3px;
-}
-::-webkit-scrollbar-thumb:hover {
-  background: var(--text-muted);
-}
+/* ================================================
+   SCROLLBAR / SELECTION / FOCUS
+   ================================================ */
+::-webkit-scrollbar { width: 6px; height: 6px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: var(--glass-border-left); border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: var(--text-muted); }
 
-/* --- Selection --- */
 ::selection {
   background: rgba(99, 102, 241, 0.3);
   color: var(--text-primary);
 }
 
-/* --- Focus Ring --- */
 *:focus-visible {
   outline: 2px solid var(--accent-primary);
   outline-offset: 2px;

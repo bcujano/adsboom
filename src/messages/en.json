@@ -20,7 +20,9 @@
     "language": "Language",
     "theme": "Theme",
     "lightMode": "Light mode",
-    "darkMode": "Dark mode"
+    "darkMode": "Dark mode",
+    "poweredBy": "Powered by Emprendimientum",
+    "allRights": "\u00a9 2026 AdsBoom. All rights reserved."
   },
   "auth": {
     "login": "Log in",
@@ -66,7 +68,9 @@
     "quickActions": "Quick Actions",
     "createCampaign": "Create Campaign",
     "viewAnalytics": "View Analytics",
-    "manageLeads": "Manage Leads"
+    "manageLeads": "Manage Leads",
+    "noCampaigns": "No campaigns yet. Create your first campaign to get started.",
+    "todayOverview": "Here's what's happening with your campaigns today."
   },
   "campaigns": {
     "title": "Campaigns",
@@ -100,5 +104,27 @@
     "billedAnnually": "billed annually",
     "oneTimeLicense": "One-time license",
     "features": "Features"
+  },
+  "landing": {
+    "badge": "AI-Powered Ad Management",
+    "heroTitle1": "From",
+    "heroTitle2": "Ad",
+    "heroTitle3": "to",
+    "heroTitle4": "Client",
+    "heroTitle5": "Fully Automated",
+    "heroDescription": "Create, optimize, and scale advertising campaigns across Meta, Google, TikTok, and more. AI does the work. You get the results.",
+    "startTrial": "Start Free Trial",
+    "seeFeatures": "See Features",
+    "previewText": "Campaign dashboard preview coming soon",
+    "featuresTitle": "Everything you need to dominate ads",
+    "featuresSubtitle": "8 powerful modules. One platform. Zero guesswork.",
+    "feature1Title": "AI Campaign Studio",
+    "feature1Desc": "Generate copy, images, and video ads with AI in seconds.",
+    "feature2Title": "Autopilot Mode",
+    "feature2Desc": "Automated A/B testing, budget optimization, and rules engine.",
+    "feature3Title": "Funnel Builder",
+    "feature3Desc": "AI-powered landing pages that convert clicks into customers.",
+    "feature4Title": "Intelligence Suite",
+    "feature4Desc": "Competitor spy, ROI predictor, and ad fatigue detection."
   }
 }
