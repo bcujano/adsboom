@@ -3,7 +3,7 @@
 import Link from 'next/link'
 import { motion } from 'motion/react'
 import { Rocket, Zap, Brain, Target, BarChart3, ArrowRight } from 'lucide-react'
-import { GlassButton, LiquidGlassCard } from '@/components/glass'
+import { GlassCard, GlassButton } from '@/components/glass'
 import { ThemeToggle } from '@/components/layout/ThemeToggle'
 import { useTranslations } from 'next-intl'
 
@@ -93,15 +93,15 @@ export default function LandingPage() {
             </div>
           </motion.div>
 
-          {/* Hero Liquid Glass Card */}
+          {/* Hero Glass Card */}
           <motion.div
             initial={{ opacity: 0, scale: 0.8 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ delay: 0.4, duration: 0.6 }}
             className="mt-16 flex justify-center"
           >
-            <LiquidGlassCard
-              preset="hero"
+            <GlassCard
+              variant="iridescent"
               padding="lg"
               className="max-w-3xl w-full min-h-[300px] flex items-center justify-center"
             >
@@ -118,7 +118,7 @@ export default function LandingPage() {
                   </div>
                 </div>
               </div>
-            </LiquidGlassCard>
+            </GlassCard>
           </motion.div>
         </div>
       </section>
@@ -144,15 +144,11 @@ export default function LandingPage() {
                 viewport={{ once: true }}
                 transition={{ delay: i * 0.1, duration: 0.4 }}
               >
-                <LiquidGlassCard preset="card" padding="lg" className="h-full">
+                <GlassCard padding="lg" className="h-full glass-prismatic">
                   <div className="flex items-start gap-4">
-                    <LiquidGlassCard
-                      preset="cardSm"
-                      padding="none"
-                      className="w-12 h-12 flex items-center justify-center shrink-0 text-accent"
-                    >
+                    <div className="w-12 h-12 rounded-xl glass-sm flex items-center justify-center shrink-0 text-accent">
                       {feature.icon}
-                    </LiquidGlassCard>
+                    </div>
                     <div>
                       <h3 className="text-lg font-semibold text-text-primary mb-2">
                         {feature.title}
@@ -162,7 +158,7 @@ export default function LandingPage() {
                       </p>
                     </div>
                   </div>
-                </LiquidGlassCard>
+                </GlassCard>
               </motion.div>
             ))}
           </div>

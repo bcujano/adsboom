@@ -12,10 +12,10 @@
   --text-secondary: #4a4a6a;
   --text-muted: #8888aa;
 
-  /* Crystal glass: more transparent = more crystal-like */
-  --glass-bg: rgba(255, 255, 255, 0.18);
-  --glass-bg-hover: rgba(255, 255, 255, 0.3);
-  --glass-blur: 20px;
+  /* Crystal glass: very transparent for true crystal look */
+  --glass-bg: rgba(255, 255, 255, 0.12);
+  --glass-bg-hover: rgba(255, 255, 255, 0.22);
+  --glass-blur: 16px;
 
   /* Thick glass edge borders */
   --glass-edge-top: rgba(255, 255, 255, 0.95);
