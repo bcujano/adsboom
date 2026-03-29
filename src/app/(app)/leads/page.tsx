@@ -69,7 +69,20 @@ export default function LeadsPage() {
   return (
     <div className="min-h-screen">
       <Header title="Prospectos" />
-      <div className="p-6 space-y-6">
+      <div className="p-6 lg:p-8 space-y-8">
+        {/* Section Description */}
+        <GlassCard padding="md" className="border-l-4 border-accent">
+          <div className="flex items-start gap-3">
+            <Users size={20} className="text-accent mt-0.5 shrink-0" />
+            <div>
+              <p className="text-sm font-medium text-text-primary">Gestión de Prospectos</p>
+              <p className="text-xs text-text-muted mt-1">
+                Centraliza todos los leads capturados por tus campañas y landing pages. El scoring automático con IA califica cada prospecto, el pipeline visual te muestra en qué etapa está cada uno, y puedes contactarlos directamente por WhatsApp o email.
+              </p>
+            </div>
+          </div>
+        </GlassCard>
+
         {/* Pipeline Overview */}
         <div className="grid grid-cols-2 md:grid-cols-5 gap-4">
           {[

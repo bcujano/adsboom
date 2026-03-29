@@ -52,7 +52,20 @@ export default function AdminPage() {
   return (
     <div className="min-h-screen">
       <Header title="Panel de Administración" />
-      <div className="p-6 space-y-6">
+      <div className="p-6 lg:p-8 space-y-8">
+        {/* Section Description */}
+        <GlassCard padding="md" className="border-l-4 border-accent">
+          <div className="flex items-start gap-3">
+            <Shield size={20} className="text-accent mt-0.5 shrink-0" />
+            <div>
+              <p className="text-sm font-medium text-text-primary">Panel de Administración</p>
+              <p className="text-xs text-text-muted mt-1">
+                Control total del sistema SaaS. Monitorea el MRR, ARR, churn rate, gestiona organizaciones, visualiza pagos y licencias emitidas. Solo visible para usuarios con rol de Super Admin.
+              </p>
+            </div>
+          </div>
+        </GlassCard>
+
         {/* Admin Badge */}
         <motion.div initial={{ opacity: 0, y: -10 }} animate={{ opacity: 1, y: 0 }} className="glass-sm rounded-xl p-3 flex items-center gap-2 w-fit">
           <Shield size={16} className="text-accent" />

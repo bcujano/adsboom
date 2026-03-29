@@ -42,6 +42,7 @@ const templates = [
 export default function FunnelsPage() {
   const [showCreate, setShowCreate] = useState(false)
   const [generating, setGenerating] = useState(false)
+  const [selectedTemplate, setSelectedTemplate] = useState('')
   const [newPage, setNewPage] = useState({ title: '', description: '' })
 
   const totalVisits = mockPages.reduce((s, p) => s + p.visits, 0)
@@ -49,17 +50,38 @@ export default function FunnelsPage() {
   const avgConvRate = mockPages.filter((p) => p.convRate > 0).reduce((s, p) => s + p.convRate, 0) / mockPages.filter((p) => p.convRate > 0).length
 
   const handleCreateWithAI = () => {
+    if (!newPage.title || !selectedTemplate) {
+      alert('Ingresa un nombre y selecciona una plantilla')
+      return
+    }
     setGenerating(true)
+    // TODO: Call Claude API to generate landing page HTML
     setTimeout(() => {
       setGenerating(false)
       setShowCreate(false)
+      setNewPage({ title: '', description: '' })
+      setSelectedTemplate('')
+      // In production, this would add the page to the list
     }, 3000)
   }
 
   return (
     <div className="min-h-screen">
       <Header title="Embudos" />
-      <div className="p-6 space-y-6">
+      <div className="p-6 lg:p-8 space-y-8">
+        {/* Section Description */}
+        <GlassCard padding="md" className="border-l-4 border-accent">
+          <div className="flex items-start gap-3">
+            <Layout size={20} className="text-accent mt-0.5 shrink-0" />
+            <div>
+              <p className="text-sm font-medium text-text-primary">Constructor de Embudos</p>
+              <p className="text-xs text-text-muted mt-1">
+                Crea landing pages optimizadas para conversión usando IA. Describe tu oferta, elige una plantilla y la IA genera la página completa con copy persuasivo, diseño profesional y formularios de captura. Vincula cada landing page a una campaña para trackear conversiones automáticamente.
+              </p>
+            </div>
+          </div>
+        </GlassCard>
+
         {/* Metrics */}
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
           {[
@@ -143,7 +165,7 @@ export default function FunnelsPage() {
               <p className="text-sm font-medium text-text-secondary mb-3">Elige una plantilla</p>
               <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
                 {templates.map((t) => (
-                  <button key={t.id} className="glass-sm rounded-xl p-4 text-left hover:scale-[1.02] transition-all">
+                  <button key={t.id} onClick={() => setSelectedTemplate(t.id)} className={`glass-sm rounded-xl p-4 text-left hover:scale-[1.02] transition-all ${selectedTemplate === t.id ? 'ring-2 ring-accent bg-accent/5' : ''}`}>
                     <div className={`w-10 h-10 rounded-xl bg-gradient-to-br ${t.color} flex items-center justify-center text-white mb-2`}>{t.icon}</div>
                     <p className="text-sm font-medium text-text-primary">{t.name}</p>
                     <p className="text-xs text-text-muted mt-0.5">{t.desc}</p>

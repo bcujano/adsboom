@@ -10,6 +10,7 @@ import {
   Plus,
   BarChart3,
   Target,
+  LayoutDashboard,
 } from 'lucide-react'
 import { GlassCard, GlassButton, GlassSkeleton } from '@/components/glass'
 import { Header } from '@/components/layout/Header'
@@ -94,7 +95,7 @@ export default function DashboardPage() {
     <div className="min-h-screen">
       <Header title={t('title')} />
 
-      <div className="p-6 space-y-6">
+      <div className="p-6 lg:p-8 space-y-8">
         {/* Welcome */}
         <motion.div
           initial={{ opacity: 0, y: -10 }}
@@ -108,15 +109,28 @@ export default function DashboardPage() {
           </p>
         </motion.div>
 
+        {/* Section Description */}
+        <GlassCard padding="md" className="border-l-4 border-accent">
+          <div className="flex items-start gap-3">
+            <LayoutDashboard size={20} className="text-accent mt-0.5 shrink-0" />
+            <div>
+              <p className="text-sm font-medium text-text-primary">Panel de Control</p>
+              <p className="text-xs text-text-muted mt-1">
+                Vista general de tu cuenta. Aquí ves el rendimiento de todas tus campañas, accesos rápidos a las herramientas principales y un resumen de tu actividad reciente.
+              </p>
+            </div>
+          </div>
+        </GlassCard>
+
         {/* Metric Cards */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
           {metrics.map((metric, i) => (
             <MetricCard key={metric.label} {...metric} delay={i * 0.1} />
           ))}
         </div>
 
         {/* Quick Actions + Recent */}
-        <div className="grid lg:grid-cols-3 gap-6">
+        <div className="grid lg:grid-cols-3 gap-8">
           {/* Quick Actions */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}

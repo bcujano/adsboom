@@ -78,7 +78,7 @@ export default function NewCampaignPage() {
   return (
     <div className="min-h-screen">
       <Header title="Nueva Campaña" />
-      <div className="p-6 max-w-4xl mx-auto space-y-6">
+      <div className="p-6 lg:p-8 max-w-4xl mx-auto space-y-6">
         {/* Progress Steps */}
         <div className="flex items-center gap-2">
           {steps.map((s, i) => (
@@ -167,9 +167,9 @@ export default function NewCampaignPage() {
                       <p className="text-xs font-semibold text-text-muted uppercase mb-2 flex items-center gap-1"><Type size={12} /> Descripción</p>
                       <div className="glass-sm rounded-lg px-4 py-3 text-sm text-text-secondary">{aiContent.descriptions[0]}</div>
                     </div>
-                    <div className="flex items-center gap-3">
-                      <div className="glass-sm rounded-lg px-4 py-3 flex items-center gap-2 text-sm"><Image size={16} className="text-accent" /><span className="text-text-primary">Imagen generada con Google Imagen 3</span></div>
-                      <div className="glass-sm rounded-lg px-4 py-3 flex items-center gap-2 text-sm"><Video size={16} className="text-accent" /><span className="text-text-primary">Video listo con Runway Gen-3</span></div>
+                    <div className="flex items-center gap-3 flex-wrap">
+                      <div className="glass-sm rounded-lg px-4 py-3 flex items-center gap-2 text-sm"><Image size={16} className="text-accent" /><span className="text-text-primary">Imagen generada con Nano Banana</span></div>
+                      <div className="glass-sm rounded-lg px-4 py-3 flex items-center gap-2 text-sm"><Video size={16} className="text-purple-500" /><span className="text-text-primary">Video generado con Google Veo 3</span></div>
                     </div>
                   </motion.div>
                 )}
@@ -208,7 +208,13 @@ export default function NewCampaignPage() {
                   <GlassInput label="Presupuesto diario (USD)" type="number" value={campaign.budgetDaily.toString()} onChange={(e) => setCampaign({ ...campaign, budgetDaily: +e.target.value })} icon={<DollarSign size={16} />} />
                   <GlassInput label="Presupuesto total (USD)" type="number" value={campaign.budgetTotal.toString()} onChange={(e) => setCampaign({ ...campaign, budgetTotal: +e.target.value })} icon={<DollarSign size={16} />} />
                   <GlassInput label="Fecha de inicio" type="date" value={campaign.startDate} onChange={(e) => setCampaign({ ...campaign, startDate: e.target.value })} icon={<Calendar size={16} />} />
-                  <GlassInput label="Fecha de fin" type="date" value={campaign.endDate} onChange={(e) => setCampaign({ ...campaign, endDate: e.target.value })} icon={<Calendar size={16} />} />
+                  <div>
+                    <GlassInput label="Fecha de fin" type="date" value={campaign.endDate} onChange={(e) => setCampaign({ ...campaign, endDate: e.target.value })} icon={<Calendar size={16} />} disabled={campaign.endDate === 'indefinido'} />
+                    <label className="flex items-center gap-2 mt-2 ml-1 cursor-pointer">
+                      <input type="checkbox" checked={campaign.endDate === 'indefinido'} onChange={(e) => setCampaign({ ...campaign, endDate: e.target.checked ? 'indefinido' : '' })} className="rounded border-[var(--glass-border)] accent-accent" />
+                      <span className="text-xs text-text-muted">Sin fecha de fin (correr indefinidamente)</span>
+                    </label>
+                  </div>
                 </div>
                 <div className="glass-sm rounded-xl p-4 mt-4 grid grid-cols-3 gap-4 text-center">
                   <div><p className="text-xs text-text-muted">CPC Estimado</p><p className="text-lg font-bold text-text-primary">$0.45</p></div>

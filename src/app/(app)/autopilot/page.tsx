@@ -50,7 +50,20 @@ export default function AutopilotPage() {
   return (
     <div className="min-h-screen">
       <Header title="Autopiloto" />
-      <div className="p-6 space-y-6">
+      <div className="p-6 lg:p-8 space-y-8">
+        {/* Section Description */}
+        <GlassCard padding="md" className="border-l-4 border-accent">
+          <div className="flex items-start gap-3">
+            <Zap size={20} className="text-accent mt-0.5 shrink-0" />
+            <div>
+              <p className="text-sm font-medium text-text-primary">Modo Autopiloto</p>
+              <p className="text-xs text-text-muted mt-1">
+                Automatiza la gestión de tus campañas con reglas inteligentes. Configura condiciones (si el CPC sube, si el ROAS baja) y acciones automáticas (pausar, escalar, notificar). Las pruebas A/B optimizan tus creatividades y el optimizador de presupuesto redistribuye tu inversión hacia las campañas ganadoras.
+              </p>
+            </div>
+          </div>
+        </GlassCard>
+
         {/* Stats Row */}
         <div className="grid grid-cols-3 gap-4">
           {[

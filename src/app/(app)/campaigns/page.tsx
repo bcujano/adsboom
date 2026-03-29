@@ -73,7 +73,20 @@ export default function CampaignsPage() {
   return (
     <div className="min-h-screen">
       <Header title="Campañas" />
-      <div className="p-6 space-y-6">
+      <div className="p-6 lg:p-8 space-y-8">
+        {/* Section Description */}
+        <GlassCard padding="md" className="border-l-4 border-accent">
+          <div className="flex items-start gap-3">
+            <Megaphone size={20} className="text-accent mt-0.5 shrink-0" />
+            <div>
+              <p className="text-sm font-medium text-text-primary">Estudio de Campañas</p>
+              <p className="text-xs text-text-muted mt-1">
+                Gestiona todas tus campañas publicitarias desde un solo lugar. Crea nuevas campañas con IA, monitorea el rendimiento en tiempo real, pausa o escala según resultados. La IA optimiza automáticamente el copy, las imágenes y la segmentación.
+              </p>
+            </div>
+          </div>
+        </GlassCard>
+
         {/* Metrics Row */}
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
           {[

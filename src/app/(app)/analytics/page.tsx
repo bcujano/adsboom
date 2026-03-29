@@ -43,7 +43,20 @@ export default function AnalyticsPage() {
   return (
     <div className="min-h-screen">
       <Header title="Analítica" />
-      <div className="p-6 space-y-6">
+      <div className="p-6 lg:p-8 space-y-8">
+        {/* Section Description */}
+        <GlassCard padding="md" className="border-l-4 border-accent">
+          <div className="flex items-start gap-3">
+            <BarChart3 size={20} className="text-accent mt-0.5 shrink-0" />
+            <div>
+              <p className="text-sm font-medium text-text-primary">Analítica Avanzada</p>
+              <p className="text-xs text-text-muted mt-1">
+                Métricas en tiempo real de todas tus campañas. Visualiza el rendimiento por canal, el embudo de conversión completo, identifica las campañas más rentables y exporta reportes PDF para tu equipo o clientes.
+              </p>
+            </div>
+          </div>
+        </GlassCard>
+
         {/* Date Range + Export */}
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-2">

@@ -34,7 +34,20 @@ export default function ReportsPage() {
   return (
     <div className="min-h-screen">
       <Header title="Reportes" />
-      <div className="p-6 space-y-6">
+      <div className="p-6 lg:p-8 space-y-8">
+        {/* Section Description */}
+        <GlassCard padding="md" className="border-l-4 border-accent">
+          <div className="flex items-start gap-3">
+            <FileText size={20} className="text-accent mt-0.5 shrink-0" />
+            <div>
+              <p className="text-sm font-medium text-text-primary">Centro de Reportes</p>
+              <p className="text-xs text-text-muted mt-1">
+                Genera reportes profesionales en PDF con un click. Elige entre plantillas de rendimiento, ROI, audiencia o resumen ejecutivo. Programa reportes automáticos semanales o mensuales que llegan directamente a tu email o al de tus clientes.
+              </p>
+            </div>
+          </div>
+        </GlassCard>
+
         {/* Quick Generate */}
         <div>
           <div className="flex items-center justify-between mb-4">

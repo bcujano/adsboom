@@ -53,7 +53,7 @@ export default function IntelligencePage() {
   return (
     <div className="min-h-screen">
       <Header title="Inteligencia" />
-      <div className="p-6 space-y-6">
+      <div className="p-6 lg:p-8 space-y-8">
         {/* Description */}
         <GlassCard padding="md" className="border-l-4 border-accent">
           <div className="flex items-start gap-3">
