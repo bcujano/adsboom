@@ -286,9 +286,9 @@ export const PLANS: PlanConfig[] = [
   {
     tier: 'enterprise',
     name: 'Enterprise',
-    price_monthly: 399,
-    price_annual: 3990,
-    price_license: 12990,
+    price_monthly: 999,
+    price_annual: 9990,
+    price_license: 24990,
     max_users: -1, // unlimited
     max_campaigns_monthly: -1,
     max_platforms: 6,
@@ -317,4 +317,71 @@ export const PLANS: PlanConfig[] = [
       'dedicated_support',
     ],
   },
+]
+
+// --- Business DNA (Onboarding) ---
+export interface BusinessDNA {
+  id: string
+  org_id: string
+  company_name: string
+  industry: string
+  website_url: string | null
+  online_store_url: string | null
+  store_platform: 'shopify' | 'woocommerce' | 'custom' | 'none' | null
+  description: string
+  products_services: string
+  price_range: string
+  target_age_min: number
+  target_age_max: number
+  target_locations: string[]
+  target_interests: string[]
+  target_gender: 'all' | 'male' | 'female'
+  social_instagram: string | null
+  social_facebook: string | null
+  social_tiktok: string | null
+  social_linkedin: string | null
+  social_youtube: string | null
+  monthly_ad_budget: number
+  ad_platforms: AdPlatform[]
+  created_at: string
+  updated_at: string
+}
+
+// --- Platform Connections (OAuth) ---
+export type ConnectionPlatform = 'meta' | 'google' | 'tiktok' | 'linkedin' | 'pinterest' | 'youtube'
+export type ConnectionStatus = 'active' | 'expired' | 'revoked'
+
+export interface PlatformConnection {
+  id: string
+  org_id: string
+  platform: ConnectionPlatform
+  account_name: string
+  account_id: string
+  ad_account_id: string | null
+  ad_account_name: string | null
+  status: ConnectionStatus
+  connected_at: string
+  expires_at: string | null
+}
+
+// --- AI Engine Keys ---
+export type AIEngine = 'openai' | 'anthropic' | 'gemini' | 'nano_banana' | 'veo3' | 'runway'
+
+export interface AIKeyConfig {
+  id: string
+  org_id: string
+  engine: AIEngine
+  api_key_encrypted: string
+  is_active: boolean
+  last_used_at: string | null
+  created_at: string
+}
+
+export const AI_ENGINES: { id: AIEngine; name: string; description: string; category: 'text' | 'image' | 'video' }[] = [
+  { id: 'openai', name: 'OpenAI GPT-4o', description: 'Generación de copy publicitario', category: 'text' },
+  { id: 'anthropic', name: 'Anthropic Claude', description: 'Estrategia IA, análisis, landing pages', category: 'text' },
+  { id: 'gemini', name: 'Google Gemini', description: 'Copy alternativo, análisis multimodal', category: 'text' },
+  { id: 'nano_banana', name: 'Nano Banana (Google Imagen 3)', description: 'Generación de imágenes publicitarias', category: 'image' },
+  { id: 'veo3', name: 'Google Veo 3', description: 'Generación de video publicitario', category: 'video' },
+  { id: 'runway', name: 'Runway Gen-3 Alpha', description: 'Video alternativo de alta calidad', category: 'video' },
 ]

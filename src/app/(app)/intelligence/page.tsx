@@ -30,6 +30,7 @@ const severityColors = {
 }
 
 export default function IntelligencePage() {
+  const [activeTab, setActiveTab] = useState('spy')
   const [analyzing, setAnalyzing] = useState(false)
   const [roiInput, setRoiInput] = useState({ budget: '1000', platform: 'meta', objective: 'conversions' })
   const [roiResult, setRoiResult] = useState<{ impressions: string; clicks: string; conversions: string; roas: string; revenue: string } | null>(null)
@@ -53,21 +54,35 @@ export default function IntelligencePage() {
     <div className="min-h-screen">
       <Header title="Inteligencia" />
       <div className="p-6 space-y-6">
+        {/* Description */}
+        <GlassCard padding="md" className="border-l-4 border-accent">
+          <div className="flex items-start gap-3">
+            <Brain size={20} className="text-accent mt-0.5 shrink-0" />
+            <div>
+              <p className="text-sm font-medium text-text-primary">Suite de Inteligencia</p>
+              <p className="text-xs text-text-muted mt-1">
+                Analiza a tu competencia, predice el ROI de tus campañas antes de lanzarlas, y detecta cuándo tus anuncios están perdiendo efectividad.
+                La IA analiza datos de mercado, tu historial de campañas y tendencias de la industria para darte ventaja competitiva.
+              </p>
+            </div>
+          </div>
+        </GlassCard>
+
         {/* Tabs */}
         <div className="flex items-center gap-1 glass-sm rounded-xl p-1 w-fit">
           {[
-            { icon: <Eye size={16} />, label: 'Espía Competencia' },
-            { icon: <TrendingUp size={16} />, label: 'Predictor ROI' },
-            { icon: <AlertTriangle size={16} />, label: 'Fatiga Publicitaria' },
-          ].map((tab, i) => (
-            <button key={tab.label} className={`flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium transition-all ${i === 0 ? 'glass text-text-primary' : 'text-text-muted hover:text-text-secondary'}`}>
+            { id: 'spy', icon: <Eye size={16} />, label: 'Espía Competencia' },
+            { id: 'roi', icon: <TrendingUp size={16} />, label: 'Predictor ROI' },
+            { id: 'fatigue', icon: <AlertTriangle size={16} />, label: 'Fatiga Publicitaria' },
+          ].map((tab) => (
+            <button key={tab.id} onClick={() => setActiveTab(tab.id)} className={`flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium transition-all ${activeTab === tab.id ? 'glass text-text-primary' : 'text-text-muted hover:text-text-secondary'}`}>
               {tab.icon}{tab.label}
             </button>
           ))}
         </div>
 
         {/* Competitor Spy */}
-        <div className="grid lg:grid-cols-3 gap-6">
+        {activeTab === 'spy' && <div className="grid lg:grid-cols-3 gap-6">
           <div className="lg:col-span-2 space-y-4">
             <div className="flex items-center justify-between">
               <h2 className="text-lg font-bold text-text-primary flex items-center gap-2"><Eye size={20} className="text-accent" /> Espía de Competencia</h2>
@@ -132,8 +147,10 @@ export default function IntelligencePage() {
           </div>
         </div>
 
+        }
+
         {/* Ad Fatigue */}
-        <div>
+        {(activeTab === 'fatigue' || activeTab === 'spy') && <div>
           <h2 className="text-lg font-bold text-text-primary flex items-center gap-2 mb-4"><AlertTriangle size={20} className="text-amber-500" /> Alertas de Fatiga Publicitaria</h2>
           <div className="space-y-3">
             {fatigueAlerts.map((alert, i) => (
@@ -157,7 +174,37 @@ export default function IntelligencePage() {
               </motion.div>
             ))}
           </div>
-        </div>
+        </div>}
+
+        {/* ROI Predictor Full (when tab selected) */}
+        {activeTab === 'roi' && (
+          <GlassCard variant="iridescent" padding="lg">
+            <h2 className="text-lg font-bold text-text-primary flex items-center gap-2 mb-2"><BarChart3 size={20} className="text-accent" /> Predictor de ROI con IA</h2>
+            <p className="text-sm text-text-muted mb-6">Ingresa tu presupuesto y la IA predice los resultados basándose en datos de tu industria, historial de campañas y benchmarks del mercado.</p>
+            <div className="max-w-md space-y-3">
+              <GlassInput label="Presupuesto mensual (USD)" type="number" value={roiInput.budget} onChange={(e) => setRoiInput({ ...roiInput, budget: e.target.value })} icon={<Target size={16} />} />
+              <GlassButton variant="gradient-purple" size="lg" className="w-full" icon={analyzing ? <Loader2 size={18} className="animate-spin" /> : <Brain size={18} />} loading={analyzing} onClick={handlePredict}>
+                {analyzing ? 'Analizando con IA...' : 'Predecir ROI'}
+              </GlassButton>
+            </div>
+            {roiResult && (
+              <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} className="mt-6 grid grid-cols-5 gap-4">
+                {[
+                  { label: 'Impresiones', value: roiResult.impressions },
+                  { label: 'Clicks', value: roiResult.clicks },
+                  { label: 'Conversiones', value: roiResult.conversions },
+                  { label: 'ROAS', value: roiResult.roas },
+                  { label: 'Revenue', value: roiResult.revenue },
+                ].map((r) => (
+                  <div key={r.label} className="glass-sm rounded-xl p-4 text-center">
+                    <p className="text-xl font-bold text-text-primary">{r.value}</p>
+                    <p className="text-xs text-text-muted mt-1">{r.label}</p>
+                  </div>
+                ))}
+              </motion.div>
+            )}
+          </GlassCard>
+        )}
       </div>
     </div>
   )

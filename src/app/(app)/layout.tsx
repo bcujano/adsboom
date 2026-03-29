@@ -28,7 +28,9 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
     <div className="flex min-h-screen">
       <Sidebar />
       <main className="flex-1 ml-[260px] transition-all duration-300">
-        {children}
+        <div className="max-w-[1440px] mx-auto">
+          {children}
+        </div>
       </main>
     </div>
   )

@@ -1,6 +1,7 @@
 'use client'
 
 import { motion } from 'motion/react'
+import Link from 'next/link'
 import {
   Megaphone,
   DollarSign,
@@ -127,33 +128,39 @@ export default function DashboardPage() {
                 {t('quickActions')}
               </h3>
               <div className="space-y-3">
-                <GlassButton
-                  variant="gradient-red"
-                  className="w-full justify-start"
-                  size="md"
-                  pill={false}
-                  icon={<Plus size={18} />}
-                >
-                  {t('createCampaign')}
-                </GlassButton>
-                <GlassButton
-                  variant="glass"
-                  className="w-full justify-start"
-                  size="md"
-                  pill={false}
-                  icon={<BarChart3 size={18} />}
-                >
-                  {t('viewAnalytics')}
-                </GlassButton>
-                <GlassButton
-                  variant="glass"
-                  className="w-full justify-start"
-                  size="md"
-                  pill={false}
-                  icon={<Target size={18} />}
-                >
-                  {t('manageLeads')}
-                </GlassButton>
+                <Link href="/campaigns/new">
+                  <GlassButton
+                    variant="gradient-red"
+                    className="w-full justify-start"
+                    size="md"
+                    pill={false}
+                    icon={<Plus size={18} />}
+                  >
+                    {t('createCampaign')}
+                  </GlassButton>
+                </Link>
+                <Link href="/analytics">
+                  <GlassButton
+                    variant="glass"
+                    className="w-full justify-start"
+                    size="md"
+                    pill={false}
+                    icon={<BarChart3 size={18} />}
+                  >
+                    {t('viewAnalytics')}
+                  </GlassButton>
+                </Link>
+                <Link href="/leads">
+                  <GlassButton
+                    variant="glass"
+                    className="w-full justify-start"
+                    size="md"
+                    pill={false}
+                    icon={<Target size={18} />}
+                  >
+                    {t('manageLeads')}
+                  </GlassButton>
+                </Link>
               </div>
             </GlassCard>
           </motion.div>
