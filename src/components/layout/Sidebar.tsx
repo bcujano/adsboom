@@ -15,6 +15,7 @@ import {
   Users,
   Settings,
   CreditCard,
+  Shield,
   ChevronLeft,
   Rocket,
 } from 'lucide-react'
@@ -28,19 +29,20 @@ interface NavItem {
 }
 
 const navItems: NavItem[] = [
-  { label: 'Dashboard', href: '/dashboard', icon: <LayoutDashboard size={20} /> },
-  { label: 'Campaigns', href: '/campaigns', icon: <Megaphone size={20} /> },
-  { label: 'Intelligence', href: '/intelligence', icon: <Brain size={20} /> },
-  { label: 'Autopilot', href: '/autopilot', icon: <Zap size={20} />, badge: 'AI' },
-  { label: 'Funnels', href: '/funnels', icon: <Target size={20} /> },
-  { label: 'Analytics', href: '/analytics', icon: <BarChart3 size={20} /> },
-  { label: 'Leads', href: '/leads', icon: <Users size={20} /> },
-  { label: 'Reports', href: '/reports', icon: <FileText size={20} /> },
+  { label: 'Panel', href: '/dashboard', icon: <LayoutDashboard size={20} /> },
+  { label: 'Campañas', href: '/campaigns', icon: <Megaphone size={20} /> },
+  { label: 'Inteligencia', href: '/intelligence', icon: <Brain size={20} /> },
+  { label: 'Autopiloto', href: '/autopilot', icon: <Zap size={20} />, badge: 'AI' },
+  { label: 'Embudos', href: '/funnels', icon: <Target size={20} /> },
+  { label: 'Analítica', href: '/analytics', icon: <BarChart3 size={20} /> },
+  { label: 'Prospectos', href: '/leads', icon: <Users size={20} /> },
+  { label: 'Reportes', href: '/reports', icon: <FileText size={20} /> },
 ]
 
 const bottomItems: NavItem[] = [
+  { label: 'Admin', href: '/admin', icon: <Shield size={20} />, badge: '⚡' },
   { label: 'Facturación', href: '/billing', icon: <CreditCard size={20} /> },
-  { label: 'Settings', href: '/settings', icon: <Settings size={20} /> },
+  { label: 'Configuración', href: '/settings', icon: <Settings size={20} /> },
 ]
 
 export function Sidebar() {
