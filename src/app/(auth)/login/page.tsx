@@ -5,7 +5,7 @@ import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 import { motion } from 'motion/react'
 import { Mail, Lock, Rocket, ArrowRight } from 'lucide-react'
-import { GlassCard, GlassButton, GlassInput } from '@/components/glass'
+import { LiquidGlassCard, GlassButton, GlassInput } from '@/components/glass'
 import { useAuth } from '@/components/providers/AuthProvider'
 import { useTranslations } from 'next-intl'
 
@@ -46,7 +46,7 @@ export default function LoginPage() {
         transition={{ duration: 0.5, ease: [0.4, 0, 0.2, 1] }}
         className="w-full max-w-md"
       >
-        <GlassCard variant="iridescent" padding="lg">
+        <LiquidGlassCard preset="hero" padding="lg">
           {/* Logo */}
           <div className="flex items-center gap-3 mb-8">
             <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-accent to-accent-secondary flex items-center justify-center">
@@ -113,7 +113,7 @@ export default function LoginPage() {
               {t('register')}
             </Link>
           </p>
-        </GlassCard>
+        </LiquidGlassCard>
       </motion.div>
     </div>
   )
