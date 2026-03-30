@@ -2,7 +2,7 @@
 
 import { useState, useRef, useEffect } from 'react'
 import { useRouter } from 'next/navigation'
-import { Bell, Globe, LogOut, User, ChevronDown } from 'lucide-react'
+import { Bell, Globe, LogOut, User, ChevronDown, Menu } from 'lucide-react'
 import { ThemeToggle } from './ThemeToggle'
 import { useAuth } from '@/components/providers/AuthProvider'
 import { getInitials } from '@/lib/utils'
@@ -52,8 +52,15 @@ export function Header({ title }: HeaderProps) {
 
   return (
     <header className="h-14 lg:h-16 flex items-center justify-between px-6 lg:px-8">
-      {/* Title — on mobile leaves space for fixed hamburger */}
-      <div className="pl-8 lg:pl-0">
+      {/* Left: hamburger (mobile) + title */}
+      <div className="flex items-center gap-3">
+        <button
+          onClick={() => window.dispatchEvent(new Event('open-mobile-menu'))}
+          className="lg:hidden p-1.5 -ml-1.5 rounded-xl hover:bg-[var(--glass-bg-hover)] text-text-muted"
+          aria-label="Menu"
+        >
+          <Menu size={22} />
+        </button>
         {title && (
           <h1 className="text-lg lg:text-xl font-semibold text-text-primary">{title}</h1>
         )}

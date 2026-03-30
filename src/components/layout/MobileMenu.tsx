@@ -37,6 +37,13 @@ export function MobileMenu() {
     return () => { document.body.style.overflow = '' }
   }, [open])
 
+  // Listen for open event from Header hamburger button
+  useEffect(() => {
+    const handler = () => setOpen(true)
+    window.addEventListener('open-mobile-menu', handler)
+    return () => window.removeEventListener('open-mobile-menu', handler)
+  }, [])
+
   const handleLanguageToggle = () => {
     const next = locale === 'es' ? 'en' : 'es'
     setLocale(next)
@@ -66,10 +73,7 @@ export function MobileMenu() {
 
   return (
     <div className="lg:hidden">
-      {/* Hamburger button */}
-      <button onClick={() => setOpen(true)} className="fixed top-3 left-3 z-[200] p-2.5 glass rounded-xl">
-        <Menu size={22} className="text-text-primary" />
-      </button>
+      {/* Hamburger button is now rendered by Header, not here */}
 
       {/* Fullscreen overlay */}
       {open && (
