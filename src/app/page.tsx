@@ -70,15 +70,30 @@ function MarqueeRow({ direction = 'left', children }: { direction?: 'left' | 'ri
 }
 
 /* ============ AD CREATIVE CARD ============ */
-function AdCard({ title, brand, platform }: { title: string; brand: string; platform: string }) {
+const adGradients = [
+  'from-violet-600 via-purple-500 to-fuchsia-500',
+  'from-blue-600 via-cyan-500 to-teal-400',
+  'from-rose-600 via-pink-500 to-orange-400',
+  'from-emerald-600 via-green-500 to-lime-400',
+  'from-amber-600 via-orange-500 to-red-400',
+  'from-indigo-600 via-blue-500 to-cyan-400',
+  'from-pink-600 via-rose-500 to-red-400',
+  'from-teal-600 via-emerald-500 to-green-400',
+]
+
+function AdCard({ title, brand, platform, idx }: { title: string; brand: string; platform: string; idx: number }) {
   return (
-    <div className="glass-sm rounded-2xl p-5 w-[280px] mx-3 shrink-0 hover:scale-[1.03] transition-transform">
-      <div className="h-36 rounded-xl bg-gradient-to-br from-accent/10 to-accent-secondary/10 mb-3 flex items-center justify-center">
-        <Megaphone size={32} className="text-accent/40" />
+    <div className="glass-sm rounded-2xl overflow-hidden w-[260px] mx-3 shrink-0 hover:scale-[1.03] transition-transform">
+      <div className={`h-40 bg-gradient-to-br ${adGradients[idx % adGradients.length]} flex flex-col items-center justify-center p-4 relative`}>
+        <div className="absolute inset-0 bg-black/20" />
+        <Megaphone size={28} className="text-white/80 relative z-10 mb-2" />
+        <p className="text-white font-bold text-center text-sm relative z-10 leading-tight">{title}</p>
+        <div className="flex items-center gap-1 mt-2 relative z-10">
+          {Array.from({ length: 5 }).map((_, j) => <Star key={j} size={10} className="text-amber-300 fill-amber-300" />)}
+        </div>
       </div>
-      <p className="text-sm font-semibold text-text-primary truncate">{title}</p>
-      <div className="flex items-center justify-between mt-2">
-        <span className="text-xs text-text-muted">{brand}</span>
+      <div className="p-3 flex items-center justify-between">
+        <span className="text-xs font-medium text-text-primary">{brand}</span>
         <span className="text-xs glass-pill px-2 py-0.5 text-text-muted">{platform}</span>
       </div>
     </div>
@@ -152,7 +167,7 @@ export default function LandingPage() {
       <CursorGlow />
 
       {/* Dot grid animated background */}
-      <div className="fixed inset-0 dot-grid-bg pointer-events-none z-0 opacity-60" />
+      <div className="fixed inset-0 dot-grid-bg pointer-events-none z-0" />
       <div className="fixed inset-0 pointer-events-none z-0">
         <div className="absolute top-0 left-1/4 w-[600px] h-[600px] bg-accent/5 rounded-full blur-[120px]" />
         <div className="absolute bottom-1/4 right-1/4 w-[400px] h-[400px] bg-accent-secondary/5 rounded-full blur-[100px]" />
@@ -190,10 +205,10 @@ export default function LandingPage() {
                 <Sparkles size={14} className="text-accent" />
                 <span className="text-sm font-medium text-text-secondary">Plataforma #1 de Anuncios con IA</span>
               </div>
-              <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold text-text-primary leading-[1.1] mb-4">
-                Campañas que venden en<br />
-                <span className="h-[1.2em] inline-flex items-center"><RotatingText /></span>
+              <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-text-primary leading-[1.15] mb-2">
+                Campañas que venden en
               </h1>
+              <div className="h-[1.3em] mb-6 text-4xl md:text-5xl lg:text-6xl font-bold"><RotatingText /></div>
               <p className="text-lg text-text-secondary max-w-lg mb-8 leading-relaxed">
                 Crea, optimiza y escala anuncios en Meta, Google y TikTok. La IA hace el trabajo pesado. Tú obtienes los clientes.
               </p>
@@ -273,16 +288,46 @@ export default function LandingPage() {
         </div>
       </section>
 
+      {/* ========== PLATFORMS — DECIDE DÓNDE VENDER ========== */}
+      <section className="py-24 px-6 relative z-10">
+        <div className="max-w-5xl mx-auto">
+          <motion.div initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} viewport={{ once: true }} className="text-center mb-14">
+            <h2 className="text-3xl md:text-5xl font-bold text-text-primary mb-4">Decide dónde vender</h2>
+            <p className="text-lg text-text-secondary max-w-xl mx-auto">Publica tus anuncios en las plataformas más importantes del mundo.</p>
+          </motion.div>
+          <div className="grid md:grid-cols-3 gap-6">
+            {[
+              { name: 'Meta Ads', icon: '∞', color: 'from-blue-500 to-blue-600', desc: 'Llega a más de 3 mil millones de personas en Facebook e Instagram. Segmentación precisa por intereses, comportamiento y audiencias similares.' },
+              { name: 'Google Ads', icon: 'G', color: 'from-red-500 via-yellow-500 to-green-500', desc: 'Aparece justo cuando te buscan. Campañas de búsqueda, display y YouTube para capturar demanda activa.' },
+              { name: 'TikTok Ads', icon: '♪', color: 'from-gray-800 to-pink-500', desc: 'Conecta con la generación que más compra online. Videos que se sienten nativos y generan engagement real.' },
+            ].map((p, i) => (
+              <motion.div key={p.name} initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: i * 0.1 }}>
+                <GlassCard padding="lg" className="h-full">
+                  <div className={`w-14 h-14 rounded-2xl bg-gradient-to-br ${p.color} flex items-center justify-center text-white text-2xl font-bold mb-5`}>
+                    {p.icon}
+                  </div>
+                  <h3 className="text-xl font-bold text-text-primary mb-3">{p.name}</h3>
+                  <p className="text-sm text-text-secondary leading-relaxed">{p.desc}</p>
+                </GlassCard>
+              </motion.div>
+            ))}
+          </div>
+          <div className="flex items-center justify-center gap-6 mt-8 text-sm text-text-muted">
+            <span>+ LinkedIn Ads</span><span>•</span><span>+ Pinterest Ads</span><span>•</span><span>+ YouTube Ads</span>
+          </div>
+        </div>
+      </section>
+
       {/* ========== CREATIVES MARQUEE ========== */}
       <section className="py-16 relative z-10">
         <motion.div initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} viewport={{ once: true }}>
           <h3 className="text-center text-lg font-semibold text-text-muted mb-8">Creatividades generadas por la IA de AdsBoom</h3>
           <MarqueeRow direction="left">
-            {adCreatives.map((c, i) => <AdCard key={`l-${i}`} {...c} />)}
+            {adCreatives.map((c, i) => <AdCard key={`l-${i}`} {...c} idx={i} />)}
           </MarqueeRow>
           <div className="h-4" />
           <MarqueeRow direction="right">
-            {[...adCreatives].reverse().map((c, i) => <AdCard key={`r-${i}`} {...c} />)}
+            {[...adCreatives].reverse().map((c, i) => <AdCard key={`r-${i}`} {...c} idx={i + 3} />)}
           </MarqueeRow>
         </motion.div>
       </section>
@@ -382,21 +427,45 @@ export default function LandingPage() {
             {PLANS.map((plan, i) => {
               const isPopular = plan.tier === 'pro'
               const price = billingPeriod === 'monthly' ? plan.price_monthly : plan.price_annual
+              const tierGradients: Record<string, string> = { basic: 'from-blue-500 to-cyan-400', pro: 'from-violet-500 to-purple-400', premium: 'from-amber-500 to-orange-400', enterprise: 'from-rose-500 to-pink-400' }
+              const featureLabels: Record<string, string> = { ai_copy_generation: 'Copy con IA', ai_image_generation: 'Imágenes con IA', ai_video_generation: 'Video con IA', campaign_publishing: 'Publicación directa', basic_analytics: 'Analítica básica', advanced_analytics: 'Analítica avanzada', ab_testing: 'Pruebas A/B', competitor_spy: 'Espía competencia', roi_predictor: 'Predictor ROI', ad_fatigue_detection: 'Detección fatiga', trend_radar: 'Radar tendencias', automation_rules: 'Automatización', funnel_builder: 'Constructor embudos', lead_bridge: 'Lead Bridge CRM', agency_hub: 'Hub agencias', white_label: 'Marca blanca', custom_domain: 'Dominio propio', client_portal: 'Portal clientes', email_notifications: 'Email alerts', whatsapp_notifications: 'WhatsApp alerts', pdf_reports: 'Reportes PDF', api_access: 'Acceso API', dedicated_support: 'Soporte dedicado' }
               return (
                 <motion.div key={plan.tier} initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: i * 0.1 }} className="relative">
                   {isPopular && <div className="absolute -top-3 left-1/2 -translate-x-1/2 z-10"><span className="px-4 py-1 rounded-full text-xs font-bold text-white bg-gradient-to-r from-violet-500 to-purple-400 shadow-lg">Más Popular</span></div>}
                   <GlassCard variant={isPopular ? 'iridescent' : 'default'} padding="lg" className={`h-full flex flex-col ${isPopular ? 'ring-2 ring-accent/30' : ''}`}>
+                    <div className={`w-10 h-10 rounded-xl bg-gradient-to-br ${tierGradients[plan.tier]} flex items-center justify-center text-white text-sm font-bold mb-3`}>
+                      {plan.name[0]}
+                    </div>
                     <h3 className="text-xl font-bold text-text-primary">{plan.name}</h3>
                     <div className="mt-3 flex items-baseline gap-1">
-                      <span className="text-4xl font-bold text-text-primary">${price}</span>
+                      <span className="text-3xl font-bold text-text-primary">${price}</span>
                       <span className="text-text-muted text-sm">{billingPeriod === 'annual' ? '/año' : '/mes'}</span>
                     </div>
-                    <p className="text-xs text-text-muted mt-1 mb-5">
-                      {plan.max_users === -1 ? 'Usuarios ilimitados' : `${plan.max_users} usuarios`} •{' '}
-                      {plan.max_campaigns_monthly === -1 ? 'Campañas ilimitadas' : `${plan.max_campaigns_monthly} campañas/mes`}
-                    </p>
-                    <div className="mt-auto">
+
+                    {/* Limits */}
+                    <div className="glass-sm rounded-lg p-2.5 mt-3 mb-4 space-y-1 text-xs">
+                      <div className="flex justify-between"><span className="text-text-muted">Usuarios</span><span className="text-text-primary font-medium">{plan.max_users === -1 ? 'Ilimitados' : plan.max_users}</span></div>
+                      <div className="flex justify-between"><span className="text-text-muted">Campañas/mes</span><span className="text-text-primary font-medium">{plan.max_campaigns_monthly === -1 ? 'Ilimitadas' : plan.max_campaigns_monthly}</span></div>
+                      <div className="flex justify-between"><span className="text-text-muted">Plataformas</span><span className="text-text-primary font-medium">{plan.max_platforms}</span></div>
+                    </div>
+
+                    {/* Features */}
+                    <ul className="space-y-1.5 mb-5 flex-1">
+                      {plan.features.slice(0, 7).map((f) => (
+                        <li key={f} className="flex items-center gap-2 text-xs">
+                          <CheckCircle2 size={12} className="text-green-500 shrink-0" />
+                          <span className="text-text-secondary">{featureLabels[f] || f}</span>
+                        </li>
+                      ))}
+                      {plan.features.length > 7 && (
+                        <li className="text-xs text-text-muted pl-5">+{plan.features.length - 7} más...</li>
+                      )}
+                    </ul>
+
+                    {/* CTA */}
+                    <div className="space-y-2 mt-auto">
                       <Link href="/register"><GlassButton variant={isPopular ? 'gradient-purple' : 'gradient-blue'} size="md" className="w-full">{plan.tier === 'enterprise' ? 'Contactar' : 'Comenzar'}</GlassButton></Link>
+                      <p className="text-center text-[10px] text-text-muted">Licencia única: ${plan.price_license.toLocaleString()}</p>
                     </div>
                   </GlassCard>
                 </motion.div>

@@ -440,16 +440,26 @@ body {
    LANDING PAGE ANIMATIONS
    ================================================================ */
 
-/* Animated dot grid background */
+/* Animated dot grid background — Matrix style */
 .dot-grid-bg {
-  background-image: radial-gradient(circle, rgba(99,102,241,0.15) 1px, transparent 1px);
-  background-size: 30px 30px;
-  animation: dot-grid-drift 20s linear infinite;
+  background-image: radial-gradient(circle, rgba(34,197,94,0.35) 1.5px, transparent 1.5px);
+  background-size: 20px 20px;
+  animation: dot-grid-drift 15s linear infinite;
+}
+
+.dark .dot-grid-bg, [data-theme="dark"] .dot-grid-bg {
+  background-image: radial-gradient(circle, rgba(34,197,94,0.25) 1.5px, transparent 1.5px);
+}
+
+:root .dot-grid-bg {
+  background-image: radial-gradient(circle, rgba(99,102,241,0.2) 1.5px, transparent 1.5px);
 }
 
 @keyframes dot-grid-drift {
   0% { background-position: 0 0; }
-  50% { background-position: 15px 15px; }
+  25% { background-position: 10px 5px; }
+  50% { background-position: 0 10px; }
+  75% { background-position: -10px 5px; }
   100% { background-position: 0 0; }
 }
 
