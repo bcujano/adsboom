@@ -19,13 +19,14 @@ export default function RegisterPage() {
   const [confirmPassword, setConfirmPassword] = useState('')
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState('')
+  const [success, setSuccess] = useState(false)
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     setError('')
 
     if (password !== confirmPassword) {
-      setError('Passwords do not match')
+      setError('Las contraseñas no coinciden')
       return
     }
 
@@ -40,8 +41,26 @@ export default function RegisterPage() {
       setError(authError.message)
       setLoading(false)
     } else {
-      router.push('/dashboard')
+      setSuccess(true)
+      setLoading(false)
     }
+  }
+
+  if (success) {
+    return (
+      <div className="min-h-screen flex items-center justify-center p-6">
+        <motion.div initial={{ opacity: 0, scale: 0.95 }} animate={{ opacity: 1, scale: 1 }} className="w-full max-w-md">
+          <GlassCard variant="iridescent" padding="lg" className="text-center">
+            <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-green-500 to-emerald-400 flex items-center justify-center mx-auto mb-4">
+              <Mail size={28} className="text-white" />
+            </div>
+            <h2 className="text-xl font-bold text-text-primary mb-2">¡Cuenta creada!</h2>
+            <p className="text-sm text-text-secondary mb-6">Te enviamos un correo de verificación a <strong>{email}</strong>. Revisa tu bandeja de entrada y haz click en el enlace para activar tu cuenta.</p>
+            <Link href="/login"><GlassButton variant="gradient-blue" size="md" className="w-full">Ir a Iniciar Sesión</GlassButton></Link>
+          </GlassCard>
+        </motion.div>
+      </div>
+    )
   }
 
   return (
