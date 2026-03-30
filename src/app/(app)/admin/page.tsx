@@ -94,18 +94,7 @@ export default function AdminPage() {
           </div>
         </GlassCard>
 
-        <div className="flex gap-8">
-          {/* Admin Sidebar */}
-          <div className="w-52 shrink-0 space-y-1">
-            {adminTabs.map((tab) => (
-              <button key={tab.id} onClick={() => setActiveTab(tab.id)} className={`w-full flex items-center gap-2.5 px-4 py-2.5 rounded-xl text-sm font-medium transition-all text-left ${activeTab === tab.id ? 'glass text-text-primary' : 'text-text-muted hover:text-text-secondary hover:bg-[var(--glass-bg)]'}`}>
-                {tab.icon}{tab.label}
-              </button>
-            ))}
-          </div>
-
-          {/* Content */}
-          <div className="flex-1 space-y-6">
+        <div className="space-y-6">
             {/* Overview */}
             {activeTab === 'overview' && (
               <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="space-y-6">
@@ -339,7 +328,6 @@ export default function AdminPage() {
                 </GlassCard>
               </motion.div>
             )}
-          </div>
         </div>
       </div>
     </div>
