@@ -51,7 +51,7 @@ export function Header({ title }: HeaderProps) {
   }
 
   return (
-    <header className="h-14 lg:h-16 flex items-center justify-between px-6 lg:px-8">
+    <header className="h-14 lg:h-16 flex items-center justify-between px-6 lg:px-8 sticky top-0 z-30 bg-[var(--bg-primary)] backdrop-blur-xl">
       {/* Left: hamburger (mobile) + title */}
       <div className="flex items-center gap-3">
         <button
