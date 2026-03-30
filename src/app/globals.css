@@ -573,3 +573,25 @@ body {
   50% { left: 150%; }
   100% { left: 150%; }
 }
+
+/* ================================================================
+   MOBILE RESPONSIVE
+   ================================================================ */
+@media (max-width: 1023px) {
+  html, body {
+    overflow-x: hidden;
+  }
+
+  /* All page content sections: proper padding */
+  .p-6 { padding: 1rem !important; }
+  .p-8, .lg\:p-8 { padding: 1rem !important; }
+  .px-6 { padding-left: 1rem !important; padding-right: 1rem !important; }
+
+  /* Tables scroll horizontally instead of breaking layout */
+  table { display: block; overflow-x: auto; -webkit-overflow-scrolling: touch; }
+
+  /* Settings sidebar goes stacked on mobile */
+  .flex.gap-8 > .w-56,
+  .flex.gap-6 > .w-56,
+  .flex.gap-8 > .w-52 { display: none; }
+}

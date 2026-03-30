@@ -64,7 +64,7 @@ export function Sidebar() {
   return (
     <aside
       style={{ width: sidebarWidth }}
-      className="sticky top-0 h-screen shrink-0 flex flex-col glass border-r border-[var(--glass-border)] !rounded-none transition-all duration-300 overflow-hidden"
+      className="sticky top-0 h-screen shrink-0 hidden lg:flex flex-col glass border-r border-[var(--glass-border)] !rounded-none transition-all duration-300 overflow-hidden"
     >
       <div className="flex items-center gap-3 px-4 h-16 border-b border-[var(--glass-border)]">
         <div className="w-8 h-8 rounded-xl bg-gradient-to-br from-accent to-accent-secondary flex items-center justify-center shrink-0">

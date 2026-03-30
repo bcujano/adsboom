@@ -2,6 +2,7 @@
 
 import { useAuth } from '@/components/providers/AuthProvider'
 import { Sidebar } from '@/components/layout/Sidebar'
+import { MobileMenu } from '@/components/layout/MobileMenu'
 import { GlassLoader } from '@/components/glass'
 import { useRouter } from 'next/navigation'
 import { useEffect } from 'react'
@@ -27,6 +28,7 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
   return (
     <div className="flex min-h-screen">
       <Sidebar />
+      <MobileMenu />
       <main className="flex-1 min-w-0 overflow-x-hidden">
         {children}
       </main>
