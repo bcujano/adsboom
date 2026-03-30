@@ -6,7 +6,8 @@ import { usePathname, useRouter } from 'next/navigation'
 import {
   LayoutDashboard, Megaphone, BarChart3, Target, Brain,
   Zap, FileText, Users, Settings, CreditCard, Shield,
-  Rocket, Menu, X, Globe, Sun, Moon, LogOut,
+  Rocket, Menu, X, Globe, Sun, Moon, LogOut, ChevronDown,
+  Building2, Key, Server,
 } from 'lucide-react'
 import { cn } from '@/lib/utils'
 import { useTranslations } from 'next-intl'
@@ -20,6 +21,7 @@ export function MobileMenu() {
   const { theme, toggleTheme } = useTheme()
   const { user, signOut } = useAuth()
   const [open, setOpen] = useState(false)
+  const [adminOpen, setAdminOpen] = useState(false)
   const [locale, setLocale] = useState(() => {
     if (typeof document !== 'undefined') {
       const match = document.cookie.match(/adsboom-locale=(\w+)/)
@@ -57,7 +59,7 @@ export function MobileMenu() {
     router.push('/login')
   }
 
-  const items = [
+  const mainItems = [
     { label: t('dashboard'), href: '/dashboard', icon: <LayoutDashboard size={20} /> },
     { label: t('campaigns'), href: '/campaigns', icon: <Megaphone size={20} /> },
     { label: t('intelligence'), href: '/intelligence', icon: <Brain size={20} /> },
@@ -66,10 +68,23 @@ export function MobileMenu() {
     { label: t('analytics'), href: '/analytics', icon: <BarChart3 size={20} /> },
     { label: t('leads'), href: '/leads', icon: <Users size={20} /> },
     { label: t('reports'), href: '/reports', icon: <FileText size={20} /> },
-    { label: 'Admin', href: '/admin', icon: <Shield size={20} /> },
+  ]
+
+  const adminSubItems = [
+    { label: 'Resumen', href: '/admin', icon: <BarChart3 size={18} /> },
+    { label: 'Organizaciones', href: '/admin/tenants', icon: <Building2 size={18} /> },
+    { label: 'Pagos y Revenue', href: '/admin/payments', icon: <CreditCard size={18} /> },
+    { label: 'Licencias', href: '/admin/licenses', icon: <Key size={18} /> },
+    { label: 'Usuarios', href: '/admin/users', icon: <Users size={18} /> },
+    { label: 'Sistema', href: '/admin/system', icon: <Server size={18} /> },
+  ]
+
+  const configItems = [
     { label: t('billing'), href: '/billing', icon: <CreditCard size={20} /> },
     { label: t('settings'), href: '/settings', icon: <Settings size={20} /> },
   ]
+
+  const isAdminActive = pathname?.startsWith('/admin')
 
   return (
     <div className="lg:hidden">
@@ -104,15 +119,64 @@ export function MobileMenu() {
 
           {/* Nav items */}
           <nav className="flex-1 px-3 py-1 space-y-0.5 overflow-y-auto">
-            {items.map((item) => {
+            {/* Section: Principal */}
+            <p className="px-4 pt-2 pb-1 text-[10px] font-semibold text-text-muted/50 uppercase tracking-wider">Principal</p>
+            {mainItems.map((item) => {
               const isActive = pathname?.startsWith(item.href)
               return (
                 <Link key={item.href} href={item.href} onClick={() => setOpen(false)}>
                   <div className={cn(
                     'flex items-center gap-4 px-4 py-3 rounded-xl transition-all',
-                    isActive
-                      ? 'bg-gradient-to-r from-accent/15 to-accent-secondary/10 text-accent'
-                      : 'text-text-secondary active:bg-[var(--glass-bg-hover)]'
+                    isActive ? 'bg-gradient-to-r from-accent/15 to-accent-secondary/10 text-accent' : 'text-text-secondary active:bg-[var(--glass-bg-hover)]'
+                  )}>
+                    <span className={isActive ? 'text-accent' : 'text-text-muted'}>{item.icon}</span>
+                    <span className="text-sm font-medium">{item.label}</span>
+                  </div>
+                </Link>
+              )
+            })}
+
+            {/* Section: Admin with expandable */}
+            <p className="px-4 pt-4 pb-1 text-[10px] font-semibold text-text-muted/50 uppercase tracking-wider">Admin</p>
+            <button
+              onClick={() => setAdminOpen(!adminOpen)}
+              className={cn(
+                'flex items-center gap-4 px-4 py-3 rounded-xl transition-all w-full',
+                isAdminActive ? 'bg-gradient-to-r from-accent/15 to-accent-secondary/10 text-accent' : 'text-text-secondary active:bg-[var(--glass-bg-hover)]'
+              )}
+            >
+              <span className={isAdminActive ? 'text-accent' : 'text-text-muted'}><Shield size={20} /></span>
+              <span className="text-sm font-medium flex-1 text-left">Admin</span>
+              <ChevronDown size={16} className={cn('text-text-muted transition-transform duration-200', adminOpen && 'rotate-180')} />
+            </button>
+            {adminOpen && (
+              <div className="space-y-0.5 ml-4">
+                {adminSubItems.map((item) => {
+                  const isActive = pathname === item.href
+                  return (
+                    <Link key={item.href} href={item.href} onClick={() => setOpen(false)}>
+                      <div className={cn(
+                        'flex items-center gap-3 px-4 py-2.5 rounded-xl transition-all',
+                        isActive ? 'bg-gradient-to-r from-accent/15 to-accent-secondary/10 text-accent' : 'text-text-secondary active:bg-[var(--glass-bg-hover)]'
+                      )}>
+                        <span className={isActive ? 'text-accent' : 'text-text-muted'}>{item.icon}</span>
+                        <span className="text-xs font-medium">{item.label}</span>
+                      </div>
+                    </Link>
+                  )
+                })}
+              </div>
+            )}
+
+            {/* Section: Config */}
+            <p className="px-4 pt-4 pb-1 text-[10px] font-semibold text-text-muted/50 uppercase tracking-wider">Configuración</p>
+            {configItems.map((item) => {
+              const isActive = pathname?.startsWith(item.href)
+              return (
+                <Link key={item.href} href={item.href} onClick={() => setOpen(false)}>
+                  <div className={cn(
+                    'flex items-center gap-4 px-4 py-3 rounded-xl transition-all',
+                    isActive ? 'bg-gradient-to-r from-accent/15 to-accent-secondary/10 text-accent' : 'text-text-secondary active:bg-[var(--glass-bg-hover)]'
                   )}>
                     <span className={isActive ? 'text-accent' : 'text-text-muted'}>{item.icon}</span>
                     <span className="text-sm font-medium">{item.label}</span>
