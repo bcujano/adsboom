@@ -52,11 +52,11 @@ export function Header({ title }: HeaderProps) {
   }
 
   return (
-    <header className="h-14 lg:h-16 flex items-center justify-between px-4 lg:px-8">
-      {/* Title — offset on mobile for hamburger */}
-      <div className="pl-10 lg:pl-0">
+    <header className="h-14 lg:h-16 flex items-center justify-between px-3 lg:px-8">
+      {/* Title */}
+      <div>
         {title && (
-          <h1 className="text-lg lg:text-xl font-semibold text-text-primary">{title}</h1>
+          <h1 className="text-lg lg:text-xl font-semibold text-text-primary ml-10 lg:ml-0">{title}</h1>
         )}
       </div>
 

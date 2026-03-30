@@ -583,9 +583,10 @@ body {
   }
 
   /* Isometric margins — equal left/right, max width usage */
-  .p-6 { padding: 0.75rem !important; }
-  .p-8, .lg\:p-8 { padding: 0.75rem !important; }
-  .px-6 { padding-left: 0.75rem !important; padding-right: 0.75rem !important; }
+  .p-6 { padding: 0.875rem !important; }
+  .p-8, .lg\:p-8 { padding: 0.875rem !important; }
+  .px-6 { padding-left: 0.875rem !important; padding-right: 0.875rem !important; }
+  .px-4 { padding-left: 0.875rem !important; padding-right: 0.875rem !important; }
 
   /* Tables scroll horizontally instead of breaking layout */
   table { display: block; overflow-x: auto; -webkit-overflow-scrolling: touch; }
