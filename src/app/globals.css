@@ -435,3 +435,69 @@ body {
   outline-offset: 2px;
   border-radius: 4px;
 }
+
+/* ================================================================
+   LANDING PAGE ANIMATIONS
+   ================================================================ */
+
+/* Animated dot grid background */
+.dot-grid-bg {
+  background-image: radial-gradient(circle, rgba(99,102,241,0.15) 1px, transparent 1px);
+  background-size: 30px 30px;
+  animation: dot-grid-drift 20s linear infinite;
+}
+
+@keyframes dot-grid-drift {
+  0% { background-position: 0 0; }
+  50% { background-position: 15px 15px; }
+  100% { background-position: 0 0; }
+}
+
+/* Mascot float animation */
+@keyframes mascot-float {
+  0%, 100% { transform: translateY(0) rotate(0deg); }
+  25% { transform: translateY(-20px) rotate(2deg); }
+  75% { transform: translateY(-10px) rotate(-2deg); }
+}
+
+/* Mascot glow pulse */
+@keyframes mascot-glow {
+  0%, 100% { filter: drop-shadow(0 0 20px rgba(139,92,246,0.3)); }
+  50% { filter: drop-shadow(0 0 40px rgba(139,92,246,0.6)) drop-shadow(0 0 80px rgba(99,102,241,0.2)); }
+}
+
+/* Marquee scroll left */
+@keyframes marquee-left {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+/* Marquee scroll right */
+@keyframes marquee-right {
+  0% { transform: translateX(-50%); }
+  100% { transform: translateX(0); }
+}
+
+.marquee-left {
+  animation: marquee-left 30s linear infinite;
+}
+
+.marquee-right {
+  animation: marquee-right 30s linear infinite;
+}
+
+.marquee-left:hover, .marquee-right:hover {
+  animation-play-state: paused;
+}
+
+/* Gradient text shimmer */
+@keyframes text-shimmer {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+.text-shimmer {
+  background-size: 200% auto;
+  animation: text-shimmer 3s ease-in-out infinite;
+}
