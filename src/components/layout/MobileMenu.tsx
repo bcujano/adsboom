@@ -71,12 +71,12 @@ export function MobileMenu() {
   ]
 
   const adminSubItems = [
-    { label: 'Resumen', href: '/admin', icon: <BarChart3 size={18} /> },
-    { label: 'Organizaciones', href: '/admin/tenants', icon: <Building2 size={18} /> },
-    { label: 'Pagos y Revenue', href: '/admin/payments', icon: <CreditCard size={18} /> },
-    { label: 'Licencias', href: '/admin/licenses', icon: <Key size={18} /> },
-    { label: 'Usuarios', href: '/admin/users', icon: <Users size={18} /> },
-    { label: 'Sistema', href: '/admin/system', icon: <Server size={18} /> },
+    { label: 'Resumen', href: '/admin?tab=overview', icon: <BarChart3 size={18} /> },
+    { label: 'Organizaciones', href: '/admin?tab=tenants', icon: <Building2 size={18} /> },
+    { label: 'Pagos y Revenue', href: '/admin?tab=payments', icon: <CreditCard size={18} /> },
+    { label: 'Licencias', href: '/admin?tab=licenses', icon: <Key size={18} /> },
+    { label: 'Usuarios', href: '/admin?tab=users', icon: <Users size={18} /> },
+    { label: 'Sistema', href: '/admin?tab=system', icon: <Server size={18} /> },
   ]
 
   const configItems = [

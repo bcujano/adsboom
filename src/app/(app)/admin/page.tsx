@@ -1,6 +1,7 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
+import { useSearchParams } from 'next/navigation'
 import { motion } from 'motion/react'
 import {
   Shield, Building2, Users, CreditCard, Key, TrendingUp,
@@ -77,7 +78,14 @@ const roleColors: Record<string, string> = {
 }
 
 export default function AdminPage() {
-  const [activeTab, setActiveTab] = useState('overview')
+  const searchParams = useSearchParams()
+  const tabFromUrl = searchParams.get('tab') || 'overview'
+  const [activeTab, setActiveTab] = useState(tabFromUrl)
+
+  // Sync tab with URL when navigating from sidebar
+  useEffect(() => {
+    setActiveTab(tabFromUrl)
+  }, [tabFromUrl])
 
   return (
     <div className="min-h-screen">

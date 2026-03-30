@@ -103,12 +103,12 @@ export function Sidebar() {
         {/* Admin sub-items */}
         {adminOpen && !collapsed && (
           <div className="space-y-0.5">
-            {renderItem({ label: 'Resumen', href: '/admin', icon: <BarChart3 size={16} />, indent: true })}
-            {renderItem({ label: 'Organizaciones', href: '/admin/tenants', icon: <Building2 size={16} />, indent: true })}
-            {renderItem({ label: 'Pagos y Revenue', href: '/admin/payments', icon: <CreditCard size={16} />, indent: true })}
-            {renderItem({ label: 'Licencias', href: '/admin/licenses', icon: <Key size={16} />, indent: true })}
-            {renderItem({ label: 'Usuarios', href: '/admin/users', icon: <Users size={16} />, indent: true })}
-            {renderItem({ label: 'Sistema', href: '/admin/system', icon: <Server size={16} />, indent: true })}
+            {renderItem({ label: 'Resumen', href: '/admin?tab=overview', icon: <BarChart3 size={16} />, indent: true })}
+            {renderItem({ label: 'Organizaciones', href: '/admin?tab=tenants', icon: <Building2 size={16} />, indent: true })}
+            {renderItem({ label: 'Pagos y Revenue', href: '/admin?tab=payments', icon: <CreditCard size={16} />, indent: true })}
+            {renderItem({ label: 'Licencias', href: '/admin?tab=licenses', icon: <Key size={16} />, indent: true })}
+            {renderItem({ label: 'Usuarios', href: '/admin?tab=users', icon: <Users size={16} />, indent: true })}
+            {renderItem({ label: 'Sistema', href: '/admin?tab=system', icon: <Server size={16} />, indent: true })}
           </div>
         )}
 
