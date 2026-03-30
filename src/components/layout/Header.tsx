@@ -25,7 +25,6 @@ export function Header({ title }: HeaderProps) {
   const menuRef = useRef<HTMLDivElement>(null)
   const displayName = user?.user_metadata?.full_name || user?.email || 'User'
 
-  // Close menu on outside click
   useEffect(() => {
     const handleClick = (e: MouseEvent) => {
       if (menuRef.current && !menuRef.current.contains(e.target as Node)) {
@@ -52,11 +51,11 @@ export function Header({ title }: HeaderProps) {
   }
 
   return (
-    <header className="h-14 lg:h-16 flex items-center justify-between px-3 lg:px-8">
-      {/* Title */}
-      <div>
+    <header className="h-14 lg:h-16 flex items-center justify-between px-6 lg:px-8">
+      {/* Title — on mobile leaves space for fixed hamburger */}
+      <div className="pl-8 lg:pl-0">
         {title && (
-          <h1 className="text-lg lg:text-xl font-semibold text-text-primary ml-10 lg:ml-0">{title}</h1>
+          <h1 className="text-lg lg:text-xl font-semibold text-text-primary">{title}</h1>
         )}
       </div>
 
@@ -108,7 +107,7 @@ export function Header({ title }: HeaderProps) {
               >
                 <User size={16} /> Mi Perfil
               </button>
-              <div className="my-1 border-t border-[var(--glass-border)]" />
+              <div className="my-1 h-px bg-[var(--glass-border)]" />
               <button
                 onClick={handleLogout}
                 className="w-full flex items-center gap-2.5 px-3 py-2.5 rounded-lg text-sm text-red-400 hover:bg-red-500/10 transition-colors text-left"
