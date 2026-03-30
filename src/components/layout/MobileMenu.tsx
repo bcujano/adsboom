@@ -2,29 +2,54 @@
 
 import { useState, useEffect } from 'react'
 import Link from 'next/link'
-import { usePathname } from 'next/navigation'
+import { usePathname, useRouter } from 'next/navigation'
 import {
   LayoutDashboard, Megaphone, BarChart3, Target, Brain,
   Zap, FileText, Users, Settings, CreditCard, Shield,
-  Rocket, Menu, X,
+  Rocket, Menu, X, Globe, Sun, Moon, Bell, LogOut, User,
 } from 'lucide-react'
 import { cn } from '@/lib/utils'
 import { useTranslations } from 'next-intl'
+import { useTheme } from '@/components/providers/ThemeProvider'
+import { useAuth } from '@/components/providers/AuthProvider'
 
 export function MobileMenu() {
   const pathname = usePathname()
+  const router = useRouter()
   const t = useTranslations('nav')
+  const { theme, toggleTheme } = useTheme()
+  const { user, signOut } = useAuth()
   const [open, setOpen] = useState(false)
+  const [locale, setLocale] = useState(() => {
+    if (typeof document !== 'undefined') {
+      const match = document.cookie.match(/adsboom-locale=(\w+)/)
+      return match?.[1] || 'es'
+    }
+    return 'es'
+  })
 
-  // Close on route change
+  const displayName = user?.user_metadata?.full_name || user?.email || 'User'
+
   useEffect(() => { setOpen(false) }, [pathname])
 
-  // Prevent body scroll when open
   useEffect(() => {
     if (open) document.body.style.overflow = 'hidden'
     else document.body.style.overflow = ''
     return () => { document.body.style.overflow = '' }
   }, [open])
+
+  const handleLanguageToggle = () => {
+    const next = locale === 'es' ? 'en' : 'es'
+    setLocale(next)
+    document.cookie = `adsboom-locale=${next};path=/;max-age=31536000`
+    window.location.reload()
+  }
+
+  const handleLogout = async () => {
+    setOpen(false)
+    if (signOut) await signOut()
+    router.push('/login')
+  }
 
   const items = [
     { label: t('dashboard'), href: '/dashboard', icon: <LayoutDashboard size={20} /> },
@@ -52,9 +77,9 @@ export function MobileMenu() {
 
       {/* Fullscreen overlay */}
       {open && (
-        <div className="fixed inset-0 z-[300] bg-[var(--bg-primary)]">
+        <div className="fixed inset-0 z-[300] bg-[var(--bg-primary)] flex flex-col">
           {/* Header */}
-          <div className="flex items-center justify-between px-5 h-14 border-b border-[var(--glass-border)]">
+          <div className="flex items-center justify-between px-4 h-14 border-b border-[var(--glass-border)] shrink-0">
             <div className="flex items-center gap-3">
               <div className="w-8 h-8 rounded-xl bg-gradient-to-br from-accent to-accent-secondary flex items-center justify-center">
                 <Rocket size={16} className="text-white" />
@@ -66,25 +91,57 @@ export function MobileMenu() {
             </button>
           </div>
 
+          {/* User info */}
+          <div className="px-4 py-3 border-b border-[var(--glass-border)] flex items-center gap-3 shrink-0">
+            <div className="w-10 h-10 rounded-full bg-gradient-to-br from-accent to-accent-secondary flex items-center justify-center">
+              <span className="text-xs font-bold text-white">{displayName.split(' ').map((n: string) => n[0]).join('').slice(0, 2)}</span>
+            </div>
+            <div className="flex-1 min-w-0">
+              <p className="text-sm font-medium text-text-primary truncate">{displayName}</p>
+              <p className="text-xs text-text-muted truncate">{user?.email}</p>
+            </div>
+          </div>
+
           {/* Nav items */}
-          <nav className="px-4 py-4 space-y-1 overflow-y-auto" style={{ maxHeight: 'calc(100vh - 56px)' }}>
+          <nav className="flex-1 px-3 py-3 space-y-0.5 overflow-y-auto">
             {items.map((item) => {
               const isActive = pathname?.startsWith(item.href)
               return (
                 <Link key={item.href} href={item.href} onClick={() => setOpen(false)}>
                   <div className={cn(
-                    'flex items-center gap-4 px-4 py-3.5 rounded-xl transition-all',
+                    'flex items-center gap-4 px-4 py-3 rounded-xl transition-all',
                     isActive
                       ? 'bg-gradient-to-r from-accent/15 to-accent-secondary/10 text-accent'
                       : 'text-text-secondary active:bg-[var(--glass-bg-hover)]'
                   )}>
                     <span className={isActive ? 'text-accent' : 'text-text-muted'}>{item.icon}</span>
-                    <span className="text-base font-medium">{item.label}</span>
+                    <span className="text-sm font-medium">{item.label}</span>
                   </div>
                 </Link>
               )
             })}
           </nav>
+
+          {/* Bottom actions: language, theme, logout */}
+          <div className="px-3 py-3 border-t border-[var(--glass-border)] space-y-1 shrink-0">
+            {/* Language + Theme row */}
+            <div className="flex items-center gap-2 px-2">
+              <button onClick={handleLanguageToggle} className="flex-1 flex items-center justify-center gap-2 py-2.5 rounded-xl glass-sm text-sm text-text-secondary">
+                <Globe size={16} />
+                <span>{locale === 'es' ? 'English' : 'Español'}</span>
+              </button>
+              <button onClick={toggleTheme} className="flex-1 flex items-center justify-center gap-2 py-2.5 rounded-xl glass-sm text-sm text-text-secondary">
+                {theme === 'dark' ? <Sun size={16} /> : <Moon size={16} />}
+                <span>{theme === 'dark' ? 'Modo Claro' : 'Modo Oscuro'}</span>
+              </button>
+            </div>
+
+            {/* Logout */}
+            <button onClick={handleLogout} className="w-full flex items-center gap-4 px-4 py-3 rounded-xl text-red-400 active:bg-red-500/10">
+              <LogOut size={20} />
+              <span className="text-sm font-medium">Cerrar Sesión</span>
+            </button>
+          </div>
         </div>
       )}
     </div>

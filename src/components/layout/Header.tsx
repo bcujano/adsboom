@@ -52,16 +52,16 @@ export function Header({ title }: HeaderProps) {
   }
 
   return (
-    <header className="h-16 flex items-center justify-between px-6 lg:px-8">
-      {/* Title */}
-      <div>
+    <header className="h-14 lg:h-16 flex items-center justify-between px-4 lg:px-8">
+      {/* Title — offset on mobile for hamburger */}
+      <div className="pl-10 lg:pl-0">
         {title && (
-          <h1 className="text-xl font-semibold text-text-primary">{title}</h1>
+          <h1 className="text-lg lg:text-xl font-semibold text-text-primary">{title}</h1>
         )}
       </div>
 
-      {/* Actions */}
-      <div className="flex items-center gap-2">
+      {/* Actions — hidden on mobile, shown in MobileMenu instead */}
+      <div className="hidden lg:flex items-center gap-2">
         {/* Language Toggle */}
         <button
           onClick={handleLanguageToggle}
