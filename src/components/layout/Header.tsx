@@ -15,7 +15,13 @@ export function Header({ title }: HeaderProps) {
   const { user, signOut } = useAuth()
   const router = useRouter()
   const [showUserMenu, setShowUserMenu] = useState(false)
-  const [locale, setLocale] = useState('es')
+  const [locale, setLocale] = useState(() => {
+    if (typeof document !== 'undefined') {
+      const match = document.cookie.match(/adsboom-locale=(\w+)/)
+      return match?.[1] || 'es'
+    }
+    return 'es'
+  })
   const menuRef = useRef<HTMLDivElement>(null)
   const displayName = user?.user_metadata?.full_name || user?.email || 'User'
 
@@ -33,7 +39,7 @@ export function Header({ title }: HeaderProps) {
   const handleLanguageToggle = () => {
     const next = locale === 'es' ? 'en' : 'es'
     setLocale(next)
-    document.cookie = `locale=${next};path=/;max-age=31536000`
+    document.cookie = `adsboom-locale=${next};path=/;max-age=31536000`
     window.location.reload()
   }
 
